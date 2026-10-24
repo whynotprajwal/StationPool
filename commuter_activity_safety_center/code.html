@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;background-color:#f8f9ff;-webkit-tap-highlight-color:transparent;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-fixed-variant": "#004b74", "primary": "#000412", "surface-bright": "#f8f9ff", "on-primary-container": "#7886a3", "background": "#f8f9ff", "outline": "#75777e", "on-tertiary-fixed": "#002113", "surface-container-high": "#dce9ff", "on-secondary": "#ffffff", "on-primary-fixed-variant": "#394761", "outline-variant": "#c5c6ce", "tertiary-fixed": "#6ffbbe", "on-secondary-fixed": "#001d32", "secondary-container": "#67bafd", "tertiary-fixed-dim": "#4edea3", "on-error-container": "#93000a", "inverse-primary": "#b8c7e6", "on-secondary-container": "#004972", "on-primary": "#ffffff", "primary-fixed": "#d7e3ff", "primary-container": "#0f1e36", "surface-variant": "#d3e4fe", "error-container": "#ffdad6", "on-tertiary-fixed-variant": "#005236", "on-background": "#0b1c30", "surface-tint": "#515f7a", "on-primary-fixed": "#0c1b33", "on-error": "#ffffff", "on-tertiary-container": "#009969", "inverse-surface": "#213145", "surface-container": "#e5eeff", "surface-container-highest": "#d3e4fe", "tertiary": "#000703", "tertiary-container": "#002416", "surface-container-lowest": "#ffffff", "secondary": "#006399", "surface-dim": "#cbdbf5", "secondary-fixed-dim": "#94ccff", "on-surface": "#0b1c30", "on-surface-variant": "#44474d", "inverse-on-surface": "#eaf1ff", "surface": "#f8f9ff", "on-tertiary": "#ffffff", "secondary-fixed": "#cde5ff", "surface-container-low": "#eff4ff", "error": "#ba1a1a", "primary-fixed-dim": "#b8c7e6" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin-desktop": "2rem", "space-sm": "0.5rem", "space-lg": "1rem", "space-xs": "0.25rem", "margin-tablet": "1.5rem", "space-xxl": "2rem", "space-xl": "1.5rem", "space-xxs": "0.125rem", "gutter": "1rem", "space-md": "0.75rem", "margin": "1rem" }, "fontFamily": { "body-sm": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-ui": ["Plus Jakarta Sans"], "label-numeric-lg": ["JetBrains Mono"], "headline-lg": ["Plus Jakarta Sans"], "label-numeric-md": ["JetBrains Mono"], "display-lg": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-numeric-sm": ["JetBrains Mono"] }, "fontSize": { "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "label-ui": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "label-numeric-lg": ["22px", { "lineHeight": "28px", "letterSpacing": "0.02em", "fontWeight": "700" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-numeric-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }], "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-numeric-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(15,30,54,0.05)] pt-safe"><div class="h-20 px-margin flex flex-col justify-center gap-space-xxs"><div class="flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><img alt="StationPool Transit Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv-WhAu9PJbgJaviYU2cd_qUTEXY3xEJTYdZUYS7Tb0g70clkA4qiMnyWjai3l4A_-6hPGFinB0Oo6hd1mDVp909G1GaQJLmZwyH79nJ9ROJ7MxX96X4PWGmgfgZm5TWnSv3YMMNSSMKbXVMUg5z7_xQepy8ofXxth56OlUav1pXgE-4HLPcEH1ij9brqxA4tKbKCv7Dyj0BlYONXR9CM3xpE8wvZKiah3jkLbs-67viOcewR4ivEQ"/><span class="font-headline-sm text-headline-sm text-primary tracking-tight font-extrabold">StationPool</span><span class="hidden sm:inline font-headline-sm text-headline-sm text-outline-variant font-light">/</span><span class="hidden sm:inline font-label-ui text-label-ui text-on-surface-variant font-semibold">Commuter Activity</span></div><div class="flex items-center gap-space-xs"><div class="inline-flex items-center gap-space-xxs bg-surface-container-low px-space-xs py-space-xxs rounded-full"><span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span><span class="font-label-numeric-sm text-label-numeric-sm text-on-secondary-container font-semibold">Aqua & Purple</span></div><button aria-label="Commuter Profile" class="relative p-space-xxs rounded-full hover:bg-surface-container-high transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuBJejtkuTZAMsFlFVoYNIuzKfwJe3IV8EhqvuBzy0csICEwg8CZ3tnkxmL_hk5W2wDSJlfy69-dfYo42G7ZMdzVQFOlflnZ-4twmCHsH3A_mJDIN9XlUB_-qft7KQFhqFkhR08EKrdZ1KB4WiIXIGKuVXMYVhucJho2JvMJ_-vb6akKylme7jE0KQh0pq2d6cGrmR52qGMoT63e3uUY4hpK9UXWNclngXUG_KaNizC5XTsLEfOhLW"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-tertiary-fixed-dim rounded-full ring-2 ring-surface-container-lowest"></span></button></div></div><div class="flex items-center justify-between"><div class="inline-flex items-center gap-space-xxs"><span class="material-symbols-outlined text-secondary text-[14px]">verified</span><span class="font-label-numeric-sm text-label-numeric-sm text-secondary font-medium tracking-wide">Simulated Pune Metro Integration</span></div><span class="font-label-ui text-label-ui text-on-surface-variant sm:hidden">Commuter Activity</span></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-20 bg-surface"><div class="flex flex-col w-full">
+<!-- Interactive Pill Navigation & Simulated Notice -->
+<div class="px-margin pt-space-md pb-space-xs flex items-center justify-between gap-space-xs">
+<div class="inline-flex items-center gap-space-xxs bg-surface-container-high/80 px-space-sm py-space-xxs rounded-full shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[15px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-secondary-fixed-variant uppercase font-bold tracking-wider">Pune Metro Feeder Club</span>
+</div>
+<div class="inline-flex items-center gap-space-xxs bg-surface-container-low px-space-xs py-space-xxs rounded-full text-outline">
+<span class="material-symbols-outlined text-[13px]">info</span>
+<span class="font-label-numeric-sm text-label-numeric-sm">Simulated History</span>
+</div>
+</div>
+<!-- Commuter Impact Stats Bar (Bento Metrics Card) -->
+<section class="px-margin py-space-xs">
+<div class="bg-primary-container text-on-primary rounded-xl p-space-lg shadow-md relative overflow-hidden">
+<!-- Ambient Decorative Glow -->
+<div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-secondary-container/20 blur-2xl pointer-events-none"></div>
+<div class="absolute -left-6 -top-6 w-36 h-36 rounded-full bg-tertiary-fixed-dim/15 blur-xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+<span class="font-label-ui text-label-ui text-surface-variant font-bold uppercase tracking-wider">Verified Green Rider</span>
+</div>
+<span class="font-label-numeric-sm text-label-numeric-sm text-surface-variant bg-surface-variant/20 px-space-xs py-space-xxs rounded-full">30-Day Snapshot</span>
+</div>
+<!-- Hero Metric Savings -->
+<div class="flex items-baseline justify-between">
+<div>
+<p class="font-body-sm text-body-sm text-on-primary-container">Fuel & Travel Money Saved</p>
+<h2 class="font-display-lg text-display-lg font-extrabold text-tertiary-fixed tracking-tight mt-space-xxs">₹4,920</h2>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-space-xxs text-tertiary-fixed bg-tertiary-container/80 px-space-xs py-space-xxs rounded-lg">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span class="font-label-numeric-sm text-label-numeric-sm font-bold">+28%</span>
+</span>
+<p class="font-body-sm text-body-sm text-surface-variant mt-space-xxs">vs solo auto</p>
+</div>
+</div>
+<!-- Secondary Metric Split -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<!-- Total Trips Metric -->
+<div class="bg-surface-variant/10 rounded-lg p-space-sm flex flex-col gap-space-xxs">
+<div class="flex items-center gap-space-xxs text-secondary-container">
+<span class="material-symbols-outlined text-[18px]">directions_subway</span>
+<span class="font-label-ui text-label-ui font-semibold">Total Trips</span>
+</div>
+<div class="flex items-baseline gap-space-xs mt-space-xxs">
+<span class="font-label-numeric-lg text-label-numeric-lg text-surface-bright font-bold">48</span>
+<span class="font-body-sm text-body-sm text-on-primary-container">Metro+Pool</span>
+</div>
+<div class="w-full bg-surface-variant/20 h-1.5 rounded-full overflow-hidden mt-space-xxs">
+<div class="bg-secondary-container h-full rounded-full w-[82%]"></div>
+</div>
+</div>
+<!-- CO2 & Tree Metric -->
+<div class="bg-surface-variant/10 rounded-lg p-space-sm flex flex-col gap-space-xxs">
+<div class="flex items-center gap-space-xxs text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[18px]">park</span>
+<span class="font-label-ui text-label-ui font-semibold">CO₂ Offset</span>
+</div>
+<div class="flex items-baseline gap-space-xs mt-space-xxs">
+<span class="font-label-numeric-lg text-label-numeric-lg text-surface-bright font-bold">84<span class="text-label-numeric-md">kg</span></span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-tertiary-fixed-dim">≈ 4 trees</span>
+</div>
+<div class="w-full bg-surface-variant/20 h-1.5 rounded-full overflow-hidden mt-space-xxs">
+<div class="bg-tertiary-fixed-dim h-full rounded-full w-[94%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Segmented View Control -->
+<div class="px-margin pt-space-sm pb-space-xs">
+<div class="bg-surface-container-low p-space-xxs rounded-xl flex items-center justify-between">
+<button class="flex-1 py-space-xs px-space-sm rounded-lg bg-surface-container-lowest text-secondary font-headline-sm text-headline-sm shadow-sm transition-all flex items-center justify-center gap-space-xxs" id="tab-rides" onclick="switchActivityView('rides')" type="button">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span>Rides & Feeder</span>
+</button>
+<button class="flex-1 py-space-xs px-space-sm rounded-lg text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm transition-all flex items-center justify-center gap-space-xxs" id="tab-safety" onclick="switchActivityView('safety')" type="button">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+<span>Safety & Trust</span>
+</button>
+<button class="flex-1 py-space-xs px-space-sm rounded-lg text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm transition-all flex items-center justify-center gap-space-xxs" id="tab-wallet" onclick="switchActivityView('wallet')" type="button">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
+<span>Maha Card</span>
+</button>
+</div>
+</div>
+<!-- SECTION 1: RECENT COMMUTE HISTORY LIST (Default Active View) -->
+<section class="px-margin py-space-xs flex flex-col gap-space-sm transition-opacity duration-200" id="view-rides">
+<div class="flex items-center justify-between pt-space-xxs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">near_me</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Recent Commute Feeder Logs</h3>
+</div>
+<button class="font-label-ui text-label-ui text-secondary font-bold hover:underline" type="button">Download GST</button>
+</div>
+<!-- Trip 1: Priyesh S (Two Wheeler Feeder) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-11 h-11 rounded-full overflow-hidden bg-surface-container-high flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A candid profile portrait of an Indian male commuter wearing a modern blue scooter helmet, smiling in warm afternoon outdoor light at Pune railway station transit bay." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCI8yyd5QhXmWpbtWI4kLQWDsnJq-untUkBJNbxWxGqa5Z93INRYG8eIKAJji4zF_NEC-8KfYVLK9hma-VnLzDKJkjgkuTaD2WAQ3QTOiNT7Eyl2svREYciOLEgLrNCnocg6m04o-KmE2znTLTYzonh3IAGFIyEVMM3Tx0Ys2mZRfmZzeKYSyag5MElow_lx5R_epJKWxuj9em4fOnansTjbcbPAzjCEoLqLS3J-wS8FCExoln1BUBq"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Priyesh S.</h4>
+<span class="inline-flex items-center gap-space-xxs bg-secondary-fixed px-space-xxs py-0.5 rounded text-on-secondary-fixed font-label-numeric-sm text-label-numeric-sm">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">sports_motorsports</span>
+<span>Hunter 350</span>
+</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Yesterday, 06:15 PM • Two-Wheeler Feeder</p>
+</div>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-label-numeric-lg text-label-numeric-lg text-on-surface font-bold">₹28</span>
+<span class="block font-label-numeric-sm text-label-numeric-sm text-on-tertiary-container font-semibold">Auto-Paid</span>
+</div>
+</div>
+<!-- Route Visual Timeline -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Pune Station Metro Gate 1</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-secondary bg-surface-bright px-space-xxs rounded">Aqua Line</span>
+</div>
+<div class="ml-1.5 pl-2.5 h-2"></div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed-dim flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+</span>
+<span class="font-body-md text-body-md text-on-surface-variant font-medium">Koregaon Park Plaza (North Main Rd)</span>
+</div>
+</div>
+<!-- Status and Action Bar -->
+<div class="flex items-center justify-between pt-space-xxs">
+<div class="flex items-center gap-space-xxs bg-surface-container-high px-space-xs py-space-xxs rounded-full">
+<span class="material-symbols-outlined text-secondary text-[14px]">check_circle</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface font-semibold">Completed</span>
+<span class="text-outline-variant font-bold">•</span>
+<span class="material-symbols-outlined text-secondary text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface font-bold">5★ Given</span>
+</div>
+<button class="font-label-ui text-label-ui text-secondary hover:text-on-secondary-fixed-variant font-bold flex items-center gap-space-xxs" onclick="alert('Viewing receipt #SP-77192. Fuel reimbursement share logged.')" type="button">
+<span>Receipt</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Trip 2: Anand Joshi (Carpool) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-11 h-11 rounded-full overflow-hidden bg-surface-container-high flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of an Indian male software engineer in a navy semi-formal shirt smiling against a warm corporate campus corridor background in Pune." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2LAWgTucFjP1UhokXTg0FolhOm7c1V8qOTzpCCtfyMz9xa4ImqZFmz5q8EdoyW0UY6rQJvjpsO3D2uDRNeb8TGryUinCehnVfcDY5zfXFAg9tBzZwQqIrw3rf4VctFcvcnpj4nCcj-3LYBqkxt9B0zDkL6HKX3fb3NOZtYtH0W_I6Dc9JBykrkgOb4as3H_URN5pCecYqSyK7LOcUTHmqvrxdzvET391ppuhSaUw7hz8jLsn5jdnk"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Anand Joshi</h4>
+<span class="inline-flex items-center gap-space-xxs bg-surface-container-high px-space-xxs py-0.5 rounded text-on-surface-variant font-label-numeric-sm text-label-numeric-sm">
+<span class="material-symbols-outlined text-[12px]">directions_car</span>
+<span>Tata Altroz</span>
+</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Yesterday, 09:10 AM • Morning Office Pool</p>
+</div>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-label-numeric-lg text-label-numeric-lg text-on-surface font-bold">₹40</span>
+<span class="block font-label-numeric-sm text-label-numeric-sm text-on-tertiary-container font-semibold">Split Paid</span>
+</div>
+</div>
+<!-- Route Details -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Vanaz Metro Station</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-secondary bg-surface-bright px-space-xxs rounded">Aqua Line</span>
+</div>
+<div class="ml-1.5 pl-2.5 h-2"></div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed-dim flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+</span>
+<span class="font-body-md text-body-md text-on-surface-variant font-medium">Paud Road (Cummins India Campus)</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xxs">
+<div class="flex items-center gap-space-xxs bg-surface-container-high px-space-xs py-space-xxs rounded-full">
+<span class="material-symbols-outlined text-secondary text-[14px]">check_circle</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface font-semibold">Completed</span>
+<span class="text-outline-variant font-bold">•</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-secondary font-bold">AC Comfort Pool</span>
+</div>
+<button class="font-label-ui text-label-ui text-secondary hover:text-on-secondary-fixed-variant font-bold flex items-center gap-space-xxs" onclick="alert('Repeat commute scheduled with Anand Joshi for tomorrow 09:10 AM.')" type="button">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+<span>Book Again</span>
+</button>
+</div>
+</div>
+<!-- Trip 3: Sneha Patwardhan (Honda Activa) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-11 h-11 rounded-full overflow-hidden bg-surface-container-high flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Polite friendly portrait of an Indian woman professional with glasses smiling against Pune University green foliage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWbZTmrJ3rTEyXA04CCQR6NJAKih1qEpWHTEZ-fuScoI_3yfebmBE2A7hjbsxD98pRmEbjaAGJqS2CYArC41TMIfddvgnGz57HENel0cJ2aEx9Ph1s9KAW5ox1CZeUVRsHxvcIUsuJeUFe3gxGmlI7ECFK4t1D2866oOeC2yBlFK-K9a8hcYSLPwYQh7LVf8oIoOzoLaToglK3WnJY6ZtfCsmqZbNd97PowFEZ2zPTy7Xy-LSPPb3z"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Sneha Patwardhan</h4>
+<span class="inline-flex items-center gap-space-xxs bg-surface-container-high px-space-xxs py-0.5 rounded text-on-surface-variant font-label-numeric-sm text-label-numeric-sm">
+<span class="material-symbols-outlined text-[12px]">moped</span>
+<span>Activa 6G</span>
+</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">12 Oct, 07:45 PM • Women Rider Shield</p>
+</div>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-label-numeric-lg text-label-numeric-lg text-on-surface font-bold">₹20</span>
+<span class="block font-label-numeric-sm text-label-numeric-sm text-on-tertiary-container font-semibold">Split Paid</span>
+</div>
+</div>
+<!-- Route Details -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Nal Stop Metro Gate 4</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-secondary bg-surface-bright px-space-xxs rounded">Aqua Line</span>
+</div>
+<div class="ml-1.5 pl-2.5 h-2"></div>
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed-dim flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+</span>
+<span class="font-body-md text-body-md text-on-surface-variant font-medium">Kothrud Karve Statue Roundabout</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xxs">
+<div class="flex items-center gap-space-xxs bg-surface-container-high px-space-xs py-space-xxs rounded-full">
+<span class="material-symbols-outlined text-secondary text-[14px]">verified_user</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface font-semibold">Women Commuter Verified</span>
+</div>
+<button class="font-label-ui text-label-ui text-on-surface-variant font-semibold flex items-center gap-space-xxs" onclick="alert('Trip feedback submitted: Clean helmet provided and prompt pickup.')" type="button">
+<span>Details</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- SECTION 2: ACTIVE SAFETY & TRUST CENTER -->
+<section class="px-margin py-space-xs flex flex-col gap-space-md hidden" id="view-safety">
+<!-- Corporate Verification Banner -->
+<div class="bg-gradient-to-r from-surface-container-high via-surface-container to-surface-container-high rounded-xl p-space-md shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center text-on-secondary shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xxs">
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">Infosys Hinjawadi Pune</h4>
+<span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Active Blue Shield • Work SSO Verified</p>
+</div>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed font-label-numeric-sm text-label-numeric-sm font-bold px-space-xs py-space-xxs rounded-full">Level 3</span>
+</div>
+<!-- Emergency SOS Trigger Module (Safety First Design) -->
+<div class="bg-error-container/40 rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-full bg-error text-on-error flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">sos</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-error-container font-extrabold">Instant Transit SOS</h4>
+</div>
+<span class="font-label-numeric-sm text-label-numeric-sm text-error font-bold uppercase bg-error-container px-space-xs py-space-xxs rounded">24x7 Live</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">One-touch dispatch alerts Pune City Police Control Room (112) and Pune Metro Security with your live GPS feeder coordinates.</p>
+<div class="flex items-center gap-space-sm pt-space-xxs">
+<button class="flex-1 bg-error hover:bg-error/90 active:scale-95 text-on-error py-space-sm rounded-lg font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-xs shadow-md transition-transform" id="sos-btn" onclick="triggerSOSDemo()" type="button">
+<span class="material-symbols-outlined text-[20px]">e911_emergency</span>
+<span>Trigger Emergency SOS</span>
+</button>
+<a class="p-space-sm rounded-lg bg-surface-container-lowest text-error flex items-center justify-center shadow-sm hover:bg-surface-container" href="tel:112">
+<span class="material-symbols-outlined text-[22px]">call</span>
+</a>
+</div>
+<div class="bg-surface-container-lowest/80 rounded-lg p-space-xs flex items-center justify-between text-on-surface-variant">
+<span class="font-body-sm text-body-sm">Metro Helpline: <strong class="text-on-surface font-label-numeric-sm">1800-270-5501</strong></span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-secondary font-semibold">Direct Transit Line</span>
+</div>
+</div>
+<!-- Guardian SOS: Trusted Contacts -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[22px]">family_restroom</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">Trusted Contacts (Guardian SOS)</h4>
+</div>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-tertiary-container bg-tertiary-fixed/40 px-space-xs py-space-xxs rounded-full font-bold">2 Active</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Live ride-tracking SMS with vehicle reg & Metro connection sent automatically upon OTP verification.</p>
+<!-- Contact 1 -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-secondary-fixed text-on-secondary-fixed font-headline-sm text-headline-sm flex items-center justify-center font-bold">
+            R
+          </div>
+<div>
+<h5 class="font-headline-sm text-headline-sm text-on-surface font-bold">Radhika Deshmukh</h5>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface-variant">Sister • +91 98230 ••••41</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Contact 2 -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-primary-fixed text-on-primary-fixed font-headline-sm text-headline-sm flex items-center justify-center font-bold">
+            S
+          </div>
+<div>
+<h5 class="font-headline-sm text-headline-sm text-on-surface font-bold">Sanjay Kulkarni</h5>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface-variant">Parent • +91 94220 ••••18</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<button class="w-full py-space-xs rounded-lg bg-surface-container-high text-secondary font-label-ui text-label-ui font-bold hover:bg-surface-container flex items-center justify-center gap-space-xxs" onclick="alert('Add contact modal opened.')" type="button">
+<span class="material-symbols-outlined text-[16px]">person_add</span>
+<span>Add Trusted Contact</span>
+</button>
+</div>
+<!-- Commuter Code of Conduct -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[22px]">policy</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">Commuter Code of Conduct</h4>
+</div>
+<div class="grid grid-cols-1 gap-space-xs">
+<div class="flex items-start gap-space-xs p-space-xs rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5">verified</span>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Non-Commercial Fuel Split Only</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Fares are strictly computed on distance cost-split formulas under Maharashtra Motor Vehicle Rules.</p>
+</div>
+</div>
+<div class="flex items-start gap-space-xs p-space-xs rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5">gavel</span>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Zero-Tolerance Safety Policy</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Instant deactivation for helmet non-compliance, rash driving, or OTP bypass.</p>
+</div>
+</div>
+<div class="flex items-start gap-space-xs p-space-xs rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5">star</span>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Peer Accountability Rating</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Must maintain minimum 4.6★ rating to access peak-hour Pune station express pools.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: WALLET & MAHA CARD LINKAGE -->
+<section class="px-margin py-space-xs flex flex-col gap-space-md hidden" id="view-wallet">
+<!-- Maha Metro Card Visual Representation -->
+<div class="bg-gradient-to-br from-primary-container via-inverse-surface to-primary text-on-primary rounded-xl p-space-lg shadow-lg relative overflow-hidden flex flex-col justify-between h-48">
+<div class="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-secondary-container/20 blur-xl"></div>
+<div class="relative z-10 flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-extrabold tracking-wider text-surface-bright">PUNE METRO</span>
+<span class="font-label-numeric-sm text-label-numeric-sm bg-secondary-container text-on-secondary-container px-space-xs py-0.5 rounded font-bold">MAHA CARD</span>
+</div>
+<span class="material-symbols-outlined text-tertiary-fixed text-[26px]">contactless</span>
+</div>
+<div class="relative z-10">
+<p class="font-label-numeric-sm text-label-numeric-sm text-on-primary-container">Transit Smart Card</p>
+<p class="font-label-numeric-lg text-label-numeric-lg text-surface-bright tracking-widest mt-space-xxs">•••• •••• •••• 8842</p>
+</div>
+<div class="relative z-10 flex items-center justify-between pt-space-xs">
+<div>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-primary-container">Cardholder</span>
+<p class="font-label-ui text-label-ui font-bold text-surface-bright uppercase">Snehal Roy</p>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-sm text-label-numeric-sm text-tertiary-fixed-dim">Integrated Feeder</span>
+<p class="font-label-ui text-label-ui font-bold text-surface-bright">NCMC Active</p>
+</div>
+</div>
+</div>
+<!-- StationPool Cash Balance Details -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">StationPool Cash Balance</span>
+<div class="flex items-baseline gap-space-xs mt-space-xxs">
+<span class="font-display-lg text-display-lg font-bold text-on-surface">₹340</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-tertiary-container font-semibold bg-tertiary-fixed/40 px-space-xs py-space-xxs rounded">Auto-reload ON</span>
+</div>
+</div>
+<button class="bg-secondary text-on-secondary px-space-md py-space-xs rounded-lg font-headline-sm text-headline-sm font-bold shadow-sm hover:bg-secondary/90 flex items-center gap-space-xxs" onclick="alert('Top-up wallet opened.')" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Top Up</span>
+</button>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">sync_alt</span>
+<span class="font-body-sm text-body-sm">Threshold auto-reload ₹200 from UPI</span>
+</div>
+<button class="font-label-ui text-label-ui text-secondary font-bold" type="button">Edit</button>
+</div>
+</div>
+<!-- Benefits of Linked Maha Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">Integrated Multi-Modal Perks</h4>
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary text-[24px]">local_activity</span>
+<div class="flex-1">
+<h5 class="font-headline-sm text-headline-sm text-on-surface font-semibold">15% Off Metro Entry</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Combined discount applied at Vanaz, Pune Station & Nal Stop turnstiles.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary text-[24px]">qr_code_scanner</span>
+<div class="flex-1">
+<h5 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Tap & Pool Unified QR</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Scan Maha Card at feeder bays to instantly authenticate your shared ride OTP.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Client-Side Switching Logic -->
+<script>
+    function switchActivityView(view) {
+      const views = ['rides', 'safety', 'wallet'];
+      views.forEach(v => {
+        const el = document.getElementById('view-' + v);
+        const tab = document.getElementById('tab-' + v);
+        if (v === view) {
+          el.classList.remove('hidden');
+          tab.classList.add('bg-surface-container-lowest', 'text-secondary', 'shadow-sm');
+          tab.classList.remove('text-on-surface-variant');
+        } else {
+          el.classList.add('hidden');
+          tab.classList.remove('bg-surface-container-lowest', 'text-secondary', 'shadow-sm');
+          tab.classList.add('text-on-surface-variant');
+        }
+      });
+    }
+
+    function triggerSOSDemo() {
+      const btn = document.getElementById('sos-btn');
+      btn.innerText = 'Transmitting Live Coordinates...';
+      btn.classList.add('animate-pulse');
+      setTimeout(() => {
+        alert('EMERGENCY PROTOCOL SIMULATION: Real-time telemetry sent to Pune Metro Control Room & 2 Guardian SOS contacts. Helpline connected.');
+        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">e911_emergency</span><span>Trigger Emergency SOS</span>';
+        btn.classList.remove('animate-pulse');
+      }, 1200);
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(15,30,54,0.06)]" data-active-classes="text-secondary font-bold"><div class="grid grid-cols-4 items-center h-20 px-space-xs"><a class="flex flex-col items-center justify-center gap-space-xxs h-full text-on-surface-variant hover:text-on-surface transition-colors" data-path="pool-metro" href="#"><span class="material-symbols-outlined text-[24px]">directions_subway</span><span class="font-label-ui text-label-ui text-center leading-none">Pool & Metro</span></a><a class="flex flex-col items-center justify-center gap-space-xxs h-full text-on-surface-variant hover:text-on-surface transition-colors" data-path="offer-ride" href="#"><span class="material-symbols-outlined text-[24px]">add_circle</span><span class="font-label-ui text-label-ui text-center leading-none">Offer Ride</span></a><a class="flex flex-col items-center justify-center gap-space-xxs h-full text-on-surface-variant hover:text-on-surface transition-colors" data-path="live-pool" href="#"><span class="material-symbols-outlined text-[24px]">near_me</span><span class="font-label-ui text-label-ui text-center leading-none">Live Pool</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xxs h-full transition-colors text-secondary font-bold" data-path="commuter-activity" href="#"><span class="material-symbols-outlined text-[24px]">history</span><span class="font-label-ui text-label-ui text-center leading-none">Activity</span></a></div></nav></body></html>

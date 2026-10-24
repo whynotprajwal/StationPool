@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f8f9ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-primary-fixed": "#001c37", "on-secondary-fixed": "#001f27", "secondary-fixed-dim": "#5cd5f8", "surface-bright": "#f8f9ff", "inverse-surface": "#213145", "secondary-fixed": "#b3ebff", "on-secondary": "#ffffff", "tertiary-fixed": "#89f5e7", "background": "#f8f9ff", "outline-variant": "#c4c6ce", "secondary": "#00677d", "on-secondary-fixed-variant": "#004e5f", "surface-container-lowest": "#ffffff", "on-error-container": "#93000a", "on-primary-fixed-variant": "#2f4867", "on-secondary-container": "#005e73", "error": "#ba1a1a", "primary": "#00162d", "tertiary": "#001916", "surface-dim": "#cbdbf5", "outline": "#74777e", "tertiary-fixed-dim": "#6bd8cb", "on-surface-variant": "#43474d", "surface-tint": "#476080", "tertiary-container": "#00302b", "surface-container": "#e5eeff", "inverse-primary": "#afc8ed", "on-surface": "#0b1c30", "inverse-on-surface": "#eaf1ff", "surface": "#f8f9ff", "primary-fixed": "#d2e4ff", "on-tertiary-fixed": "#00201d", "on-background": "#0b1c30", "primary-container": "#0f2b48", "on-primary-container": "#7a93b5", "secondary-container": "#63dbfe", "surface-container-highest": "#d3e4fe", "on-primary": "#ffffff", "on-tertiary-fixed-variant": "#005049", "surface-container-low": "#eff4ff", "on-tertiary": "#ffffff", "primary-fixed-dim": "#afc8ed", "on-error": "#ffffff", "surface-container-high": "#dce9ff", "surface-variant": "#d3e4fe", "error-container": "#ffdad6", "on-tertiary-container": "#29a195" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "space-xl": "2rem", "margin-md": "2rem", "gutter": "1rem", "space-2xl": "3rem", "gutter-md": "1.5rem", "margin": "1rem", "space-md": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter-lg": "2rem", "margin-lg": "3rem" }, fontFamily: { "label-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"] }, fontSize: { "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "800" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "700" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(15,43,72,0.04)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Go back" class="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight line-clamp-1">Driver Verification</h1></div><div class="flex items-center gap-space-sm"><button aria-label="Emergency SOS Alert" class="h-9 px-space-sm rounded-full bg-error-container text-on-error-container flex items-center gap-space-xs font-label-sm text-label-sm font-bold active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[18px] text-error">emergency</span><span>SOS</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-10">
+<!-- Interactive View Switcher Demo Bar -->
+<section class="px-gutter pt-space-sm pb-space-sm">
+<div class="bg-surface-container-high rounded-full p-1 flex items-center justify-between shadow-sm">
+<button class="flex-1 py-1.5 px-3 rounded-full font-label-md text-label-md text-on-primary bg-primary-container shadow-sm transition-all text-center" id="tab-form" onclick="switchState('form')" type="button">
+        Form View
+      </button>
+<button class="flex-1 py-1.5 px-3 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all text-center" id="tab-pending" onclick="switchState('pending')" type="button">
+        Pending (24h)
+      </button>
+<button class="flex-1 py-1.5 px-3 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all text-center" id="tab-verified" onclick="switchState('verified')" type="button">
+        Verified Badge
+      </button>
+</div>
+</section>
+<!-- PENDING REVIEW BANNER (Conditional State) -->
+<div class="hidden px-gutter mb-space-md" id="state-pending">
+<div class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm text-on-tertiary-container">
+<span class="material-symbols-outlined text-[24px]">hourglass_top</span>
+<span class="font-headline-sm text-headline-sm font-bold">Verification In Review</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Your documents are being cross-verified with DigiLocker and RTO Pune. Most profiles are cleared in under 2 hours (24h SLA max).
+      </p>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden mt-1">
+<div class="h-full bg-secondary w-3/4 rounded-full"></div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm">
+<span>Submitted: Today, 08:30 AM</span>
+<span class="text-secondary font-bold">ETA: ~45 mins</span>
+</div>
+</div>
+</div>
+<!-- VERIFIED BADGE BANNER (Conditional State) -->
+<div class="hidden px-gutter mb-space-md" id="state-verified">
+<div class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm text-secondary">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Pune Metro Verified Commuter</h2>
+<p class="font-label-sm text-label-sm text-secondary">Badge active • Valid till Aug 2025</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-DEFAULT flex items-center justify-between text-on-surface">
+<span class="font-body-sm text-body-sm">Eligible for Vanaz & Ruby Hall carpool hub access</span>
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+</div>
+</div>
+</div>
+<!-- MAIN ONBOARDING FORM VIEW -->
+<div class="flex flex-col gap-space-md px-gutter" id="state-form">
+<!-- Sub-header & Micro-intro -->
+<div class="flex flex-col gap-1">
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Offer vacant seats to verified Pune Metro commuters along your daily station corridor.
+      </p>
+</div>
+<!-- SECTION 1: Stepper / Progress Header -->
+<section class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Step Tracker -->
+<div class="flex items-center justify-between relative">
+<!-- Connecting Line behind -->
+<div class="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[2px] bg-surface-container -z-0"></div>
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-1 z-10">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-primary">Personal</span>
+</div>
+<!-- Step 2 (Active) -->
+<div class="flex flex-col items-center gap-1 z-10">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-sm">
+<span class="font-label-md text-label-md font-bold">2</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-secondary">Govt ID & DL</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-1 z-10">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center">
+<span class="font-label-md text-label-md">3</span>
+</div>
+<span class="font-label-sm text-label-sm font-medium text-on-surface-variant">Vehicle & RC</span>
+</div>
+</div>
+<!-- Verification Status Badge & Safe Privacy Note -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Submission State</span>
+<span class="bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+            Pending Submission
+          </span>
+</div>
+<div class="flex items-start gap-space-xs text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">lock</span>
+<p class="font-body-sm text-body-sm leading-tight">
+            Data encrypted & never shared publicly. Full ID numbers permanently masked across commuter matching lists.
+          </p>
+</div>
+</div>
+</section>
+<!-- SECTION 2: Personal & Workplace Verification Card -->
+<section class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Personal & Workplace</h2>
+<p class="font-label-sm text-label-sm text-secondary font-bold">Step 1 Completed</p>
+</div>
+</div>
+<button class="text-secondary hover:text-on-secondary-container transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+<div class="space-y-space-sm text-on-surface">
+<!-- Full Legal Name -->
+<div class="flex items-center justify-between p-space-sm rounded-DEFAULT bg-surface-container-low">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Full Legal Name</span>
+<span class="font-body-md text-body-md font-bold">Amit Deshmukh</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[18px]">verified_user</span>
+</div>
+<!-- Mobile Number -->
+<div class="flex items-center justify-between p-space-sm rounded-DEFAULT bg-surface-container-low">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Primary Contact</span>
+<span class="font-body-md text-body-md font-semibold">+91 98220 12345</span>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> OTP Verified
+          </span>
+</div>
+<!-- Work Email -->
+<div class="flex items-center justify-between p-space-sm rounded-DEFAULT bg-surface-container-low">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Corporate Email</span>
+<span class="font-body-md text-body-md font-semibold truncate max-w-[170px]">amit.deshmukh@infosys.com</span>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">domain</span> Badge Verified
+          </span>
+</div>
+<!-- Residential Area -->
+<div class="flex items-start gap-space-sm p-space-sm rounded-DEFAULT bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">location_on</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Commuter Home Base</span>
+<span class="font-body-md text-body-md font-semibold">Kothrud, Pune</span>
+<span class="font-body-sm text-body-sm text-secondary font-medium">Vanaz Metro Station (Aqua Line Feeder)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: Government Identity & Driving License Verification -->
+<section class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">id_card</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Govt ID & Driving License</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Active Verification Step</p>
+</div>
+</div>
+<!-- ID Type Selector Dropdown -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider" for="id-type">Government ID Type</label>
+<div class="relative">
+<select class="w-full h-12 bg-surface-container-low text-on-surface rounded-DEFAULT px-space-md font-body-md text-body-md appearance-none focus:outline-none focus:bg-surface-container-lowest shadow-sm" id="id-type">
+<option selected="">Aadhaar Card (UIDAI Direct Connect)</option>
+<option>PAN Card (Govt of India)</option>
+<option>Passport (Indian Republic)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Masked Document Number Input -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-center">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider" for="doc-number">Aadhaar Number (Masked)</label>
+<span class="font-label-sm text-label-sm text-secondary font-medium">UIDAI Encrypted</span>
+</div>
+<div class="relative">
+<input class="w-full h-12 bg-surface-container-low text-on-surface rounded-DEFAULT px-space-md font-body-md text-body-md font-bold tracking-widest focus:outline-none shadow-sm" id="doc-number" readonly="" type="text" value="XXXX XXXX 4912"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">lock_outline</span>
+</div>
+</div>
+<!-- Secure Document Upload Zone -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider">Front & Back Scan Preview</span>
+<div class="bg-surface-container-low rounded-DEFAULT p-space-sm flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-DEFAULT bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-bold truncate max-w-[150px]">aadhaar_card_front.pdf</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Uploaded & Verified ✓</span>
+</div>
+</div>
+<button class="h-8 px-space-sm rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm active:scale-95 transition-all" type="button">
+            Re-upload
+          </button>
+</div>
+</div>
+<!-- Driving License Details -->
+<div class="p-space-sm rounded-DEFAULT bg-surface-container-low flex flex-col gap-space-sm mt-1">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md font-bold text-on-surface">Driving License (RTO Pune)</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">Valid</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">License Number</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">MH-12-2018-0094821</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Expiry Date</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">14/08/2034</span>
+</div>
+</div>
+<!-- License photo preview thumbnail -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-DEFAULT bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">photo_camera_front</span>
+</div>
+<span class="font-body-sm text-body-sm font-medium">dl_smartcard.jpg (Uploaded ✓)</span>
+</div>
+<button class="text-secondary font-label-sm text-label-sm hover:underline" type="button">Preview</button>
+</div>
+</div>
+</section>
+<!-- SECTION 4: Vehicle & Seat Details -->
+<section class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">two_wheeler</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Vehicle & Seat Capacity</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Vanaz Metro Corridor Commute</p>
+</div>
+</div>
+<!-- Vehicle Category Selector -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider">Transit Category</span>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Two Wheeler (Active) -->
+<button class="flex flex-col items-center justify-center p-space-sm rounded-DEFAULT bg-primary-container text-on-primary shadow-sm text-center transition-all" id="cat-bike" onclick="selectVehicle('bike')" type="button">
+<span class="material-symbols-outlined text-[24px]">moped</span>
+<span class="font-label-md text-label-md font-bold mt-1">Two-Wheeler</span>
+<span class="font-label-sm text-label-sm text-on-primary-container">1 Pillion Seat</span>
+</button>
+<!-- Four Wheeler -->
+<button class="flex flex-col items-center justify-center p-space-sm rounded-DEFAULT bg-surface-container-low text-on-surface text-center hover:bg-surface-container transition-all" id="cat-car" onclick="selectVehicle('car')" type="button">
+<span class="material-symbols-outlined text-[24px]">directions_car</span>
+<span class="font-label-md text-label-md font-bold mt-1">Four-Wheeler</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1 to 4 Seats</span>
+</button>
+</div>
+</div>
+<!-- Make, Model & Reg Details -->
+<div class="space-y-space-sm">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Vehicle Make & Model</label>
+<div class="h-11 px-space-md bg-surface-container-low rounded-DEFAULT flex items-center text-on-surface font-body-md text-body-md font-semibold">
+            Honda Activa 6G (Pearl Metallic White)
+          </div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant">RTO Registration Number</label>
+<div class="h-11 px-space-md bg-surface-container-low rounded-DEFAULT flex items-center justify-between text-on-surface font-body-md text-body-md font-bold tracking-wider">
+<span>MH-12-EU-4412</span>
+<span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+</div>
+</div>
+<!-- RC Upload Status -->
+<div class="bg-surface-container-low p-space-sm rounded-DEFAULT flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">assignment</span>
+<div>
+<p class="font-body-sm text-body-sm font-bold text-on-surface">rc_certificate.pdf</p>
+<p class="font-label-sm text-label-sm text-secondary font-semibold">Uploaded & Linked ✓</p>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">
+            Change
+          </button>
+</div>
+<!-- Spare Helmet Safety Check -->
+<div class="bg-surface-container-low p-space-sm rounded-DEFAULT flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">sports_motorsports</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold text-on-surface">Sanitized ISI Helmet Provided</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Mandatory for passenger safety</p>
+</div>
+</div>
+<!-- Native-like switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- SECTION 5: Legal & Safety Consent Notice -->
+<section class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[20px]">shield</span>
+<h3 class="font-label-lg text-label-lg font-bold">Pune Metro Transit Commute Agreement</h3>
+</div>
+<div class="flex flex-col gap-space-sm mt-1">
+<!-- Checkbox 1 -->
+<label class="flex items-start gap-space-sm cursor-pointer select-none">
+<input checked="" class="mt-1 w-4 h-4 rounded text-primary focus:ring-0" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+            I confirm this is a strictly <strong class="text-on-surface">non-commercial carpooling/bike-pooling commute</strong>. I agree not to charge fares exceeding Maharashtra RTO fuel-cost cost-sharing guidelines.
+          </span>
+</label>
+<!-- Checkbox 2 -->
+<label class="flex items-start gap-space-sm cursor-pointer select-none">
+<input checked="" class="mt-1 w-4 h-4 rounded text-primary focus:ring-0" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+            I agree to strictly adhere to the <strong class="text-on-surface">Pune Metro Commuter Safety & Code of Conduct</strong> guidelines.
+          </span>
+</label>
+</div>
+</section>
+<!-- SECTION 6: Primary Action CTA -->
+<section class="flex flex-col gap-space-sm pt-space-xs">
+<button class="w-full h-12 bg-primary-container text-on-primary rounded-full font-label-lg text-label-lg font-bold flex items-center justify-center gap-space-sm shadow-md active:scale-[0.98] transition-all" onclick="submitForReview()" type="button">
+<span>Submit for Verification</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<div class="flex items-center justify-center gap-space-xs text-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-secondary">timer</span>
+<span class="font-label-sm text-label-sm">Reviewed within 2 hours by Pune Metro Community Safety Desk.</span>
+</div>
+</section>
+</div>
+</div>
+<script>
+  function switchState(state) {
+    const formTab = document.getElementById('tab-form');
+    const pendingTab = document.getElementById('tab-pending');
+    const verifiedTab = document.getElementById('tab-verified');
+
+    const formView = document.getElementById('state-form');
+    const pendingView = document.getElementById('state-pending');
+    const verifiedView = document.getElementById('state-verified');
+
+    const inactiveClass = 'flex-1 py-1.5 px-3 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all text-center';
+    const activeClass = 'flex-1 py-1.5 px-3 rounded-full font-label-md text-label-md text-on-primary bg-primary-container shadow-sm transition-all text-center';
+
+    formTab.className = inactiveClass;
+    pendingTab.className = inactiveClass;
+    verifiedTab.className = inactiveClass;
+
+    if (state === 'form') {
+      formTab.className = activeClass;
+      formView.classList.remove('hidden');
+      pendingView.classList.add('hidden');
+      verifiedView.classList.add('hidden');
+    } else if (state === 'pending') {
+      pendingTab.className = activeClass;
+      formView.classList.remove('hidden');
+      pendingView.classList.remove('hidden');
+      verifiedView.classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (state === 'verified') {
+      verifiedTab.className = activeClass;
+      formView.classList.remove('hidden');
+      pendingView.classList.add('hidden');
+      verifiedView.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function selectVehicle(type) {
+    const bikeBtn = document.getElementById('cat-bike');
+    const carBtn = document.getElementById('cat-car');
+
+    const activeBikeClass = 'flex flex-col items-center justify-center p-space-sm rounded-DEFAULT bg-primary-container text-on-primary shadow-sm text-center transition-all';
+    const inactiveBikeClass = 'flex flex-col items-center justify-center p-space-sm rounded-DEFAULT bg-surface-container-low text-on-surface text-center hover:bg-surface-container transition-all';
+
+    if (type === 'bike') {
+      bikeBtn.className = activeBikeClass;
+      carBtn.className = inactiveBikeClass;
+    } else {
+      carBtn.className = activeBikeClass;
+      bikeBtn.className = inactiveBikeClass;
+    }
+  }
+
+  function submitForReview() {
+    switchState('pending');
+  }
+</script></main></body></html>

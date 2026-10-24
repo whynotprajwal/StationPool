@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary-fixed": "#002113", "on-secondary-container": "#f5f8ff", "on-tertiary-fixed-variant": "#005236", "surface-tint": "#b8c7e6", "on-primary-fixed-variant": "#394761", "error": "#ffb4ab", "on-error": "#690005", "secondary-container": "#0378b7", "on-primary": "#223149", "surface-bright": "#2a3a4f", "surface-container-highest": "#26364a", "on-primary-container": "#7886a3", "surface-container-lowest": "#000f21", "primary": "#b8c7e6", "secondary-fixed-dim": "#94ccff", "surface-container-high": "#1b2b3f", "outline-variant": "#44474d", "inverse-primary": "#515f7a", "on-background": "#d3e4fe", "on-secondary": "#003352", "outline": "#8f9098", "tertiary-fixed": "#6ffbbe", "on-error-container": "#ffdad6", "tertiary-fixed-dim": "#4edea3", "surface-container-low": "#0b1c30", "on-tertiary": "#003824", "inverse-on-surface": "#213145", "on-secondary-fixed": "#001d32", "secondary-fixed": "#cde5ff", "on-primary-fixed": "#0c1b33", "primary-container": "#0f1e36", "surface": "#031427", "tertiary-container": "#002416", "on-secondary-fixed-variant": "#004b74", "inverse-surface": "#d3e4fe", "surface-dim": "#031427", "tertiary": "#4edea3", "on-surface-variant": "#c5c6ce", "background": "#031427", "on-surface": "#d3e4fe", "on-tertiary-container": "#009969", "primary-fixed-dim": "#b8c7e6", "secondary": "#94ccff", "primary-fixed": "#d7e3ff", "surface-variant": "#26364a", "surface-container": "#102034", "error-container": "#93000a" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "0.75rem", "space-xxl": "2rem", "gutter": "1rem", "space-xs": "0.25rem", "margin": "1rem", "space-xl": "1.5rem", "space-lg": "1rem", "margin-tablet": "1.5rem", "space-sm": "0.5rem", "space-xxs": "0.125rem", "margin-desktop": "2rem" }, "fontFamily": { "headline-lg": ["Plus Jakarta Sans"], "label-numeric-sm": ["JetBrains Mono"], "label-numeric-md": ["JetBrains Mono"], "headline-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-ui": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "label-numeric-lg": ["JetBrains Mono"], "body-md": ["Plus Jakarta Sans"] }, "fontSize": { "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700"}], "label-numeric-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500"}], "label-numeric-md": ["14px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600"}], "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}], "label-ui": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}], "headline-sm": ["16px", {"lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600"}], "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}], "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}], "label-numeric-lg": ["22px", {"lineHeight": "28px", "letterSpacing": "0.02em", "fontWeight": "700"}], "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}] } } } }</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col pt-safe pb-safe"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-secondary-container/40 flex items-center justify-center"><span class="material-symbols-outlined text-secondary text-[22px]">commute</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-tight">StationPool</span><span class="font-label-ui text-label-ui text-secondary text-[10px] tracking-wider uppercase">Pune Metro Feeder Club</span></div></div><div class="flex items-center gap-space-xs px-space-sm py-space-xxs rounded-full bg-surface-container-high"><span class="w-2 h-2 rounded-full bg-tertiary"></span><span class="font-label-numeric-sm text-label-numeric-sm text-on-surface-variant">Pune Metro Verified</span></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 bg-surface px-margin"><div class="flex flex-col w-full pb-8">
+<!-- Interactive State Switcher Pill Toolbar (Sticky prototype controls) -->
+<div class="mb-4 bg-surface-container-high rounded-xl p-1.5 shadow-md flex items-center justify-between">
+<div class="flex items-center gap-1.5 px-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-ui text-label-ui text-on-surface-variant uppercase tracking-wider text-[10px]">Demo State</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-lowest p-1 rounded-lg">
+<button class="px-2.5 py-1 rounded font-label-ui text-label-ui text-on-primary bg-secondary text-[11px] transition-all duration-200" id="btnStateDefault" onclick="setDemoState('default')">
+        Default
+      </button>
+<button class="px-2.5 py-1 rounded font-label-ui text-label-ui text-on-surface-variant hover:text-on-surface text-[11px] transition-all duration-200" id="btnStateError" onclick="setDemoState('error')">
+        Invalid OTP
+      </button>
+<button class="px-2.5 py-1 rounded font-label-ui text-label-ui text-on-surface-variant hover:text-on-surface text-[11px] transition-all duration-200" id="btnStateSuccess" onclick="setDemoState('success')">
+        Success
+      </button>
+</div>
+</div>
+<!-- Screen Header & Back Navigation -->
+<div class="flex items-center justify-between py-2 mb-3">
+<button class="flex items-center gap-1 text-secondary hover:text-on-background transition-colors group" type="button">
+<span class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center group-active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+</span>
+<span class="font-body-md text-body-md">Edit number</span>
+</button>
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high">
+<span class="material-symbols-outlined text-secondary text-[14px]">shield_lock</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface-variant">Step 2 of 3</span>
+</div>
+</div>
+<!-- Pune Metro Commuter Trust Context Card -->
+<div class="bg-surface-container-low rounded-xl p-3 mb-6 flex items-center gap-3 shadow-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary-fixed text-[22px]">directions_subway</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-on-surface">Pune Metro Vanaz-Ramwadi Line</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Feeder Club Verification for Civil Court Station</span>
+</div>
+</div>
+<!-- Primary Verification Copy -->
+<div class="flex flex-col gap-1 mb-6">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Verify your mobile number</h1>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+      Enter the 6-digit authentication code sent to
+      <span class="font-label-numeric-md text-label-numeric-md text-on-surface font-semibold">+91 98230 •••••</span>
+<button class="inline-flex items-center gap-0.5 ml-1 text-secondary hover:text-secondary-fixed font-semibold underline decoration-secondary/40 underline-offset-4" type="button">
+        Edit Number
+      </button>
+</p>
+</div>
+<!-- OTP Inputs Container -->
+<div class="bg-surface-container rounded-2xl p-5 mb-5 shadow-lg flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<label class="font-label-ui text-label-ui text-on-surface-variant uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-secondary">pin</span>
+        Security Code (OTP)
+      </label>
+<span class="font-label-numeric-sm text-label-numeric-sm text-secondary flex items-center gap-1" id="inputStatusIndicator">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+        Waiting for input
+      </span>
+</div>
+<!-- 6 Distinct Numeric Digit Boxes -->
+<div class="grid grid-cols-6 gap-2 w-full" id="otpBoxContainer">
+<div class="relative flex items-center justify-center">
+<input class="otp-digit w-full h-14 text-center font-label-numeric-lg text-label-numeric-lg bg-surface-container-high text-on-surface rounded-xl focus:outline-none focus:bg-surface-bright focus:shadow-[0_0_0_2px] focus:shadow-secondary transition-all" data-index="0" inputmode="numeric" maxlength="1" type="text" value="8"/>
+</div>
+<div class="relative flex items-center justify-center">
+<input class="otp-digit w-full h-14 text-center font-label-numeric-lg text-label-numeric-lg bg-surface-container-high text-on-surface rounded-xl focus:outline-none focus:bg-surface-bright focus:shadow-[0_0_0_2px] focus:shadow-secondary transition-all" data-index="1" inputmode="numeric" maxlength="1" type="text" value="4"/>
+</div>
+<div class="relative flex items-center justify-center">
+<input class="otp-digit w-full h-14 text-center font-label-numeric-lg text-label-numeric-lg bg-surface-container-high text-on-surface rounded-xl focus:outline-none focus:bg-surface-bright focus:shadow-[0_0_0_2px] focus:shadow-secondary transition-all" data-index="2" inputmode="numeric" maxlength="1" type="text" value="2"/>
+</div>
+<div class="relative flex items-center justify-center">
+<input class="otp-digit w-full h-14 text-center font-label-numeric-lg text-label-numeric-lg bg-surface-container-high text-on-surface rounded-xl focus:outline-none focus:bg-surface-bright focus:shadow-[0_0_0_2px] focus:shadow-secondary transition-all" data-index="3" inputmode="numeric" maxlength="1" type="text" value=""/>
+</div>
+<div class="relative flex items-center justify-center">
+<input class="otp-digit w-full h-14 text-center font-label-numeric-lg text-label-numeric-lg bg-surface-container-high text-on-surface rounded-xl focus:outline-none focus:bg-surface-bright focus:shadow-[0_0_0_2px] focus:shadow-secondary transition-all" data-index="4" inputmode="numeric" maxlength="1" type="text" value=""/>
+</div>
+<div class="relative flex items-center justify-center">
+<input class="otp-digit w-full h-14 text-center font-label-numeric-lg text-label-numeric-lg bg-surface-container-high text-on-surface rounded-xl focus:outline-none focus:bg-surface-bright focus:shadow-[0_0_0_2px] focus:shadow-secondary transition-all" data-index="5" inputmode="numeric" maxlength="1" type="text" value=""/>
+</div>
+</div>
+<!-- Dynamic Error Alert Box (Hidden in standard state) -->
+<div class="hidden bg-error-container text-on-error-container rounded-xl p-3 flex items-start gap-2.5 animate-fadeIn" id="errorMessageBanner">
+<span class="material-symbols-outlined text-error text-[20px] shrink-0">error</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-error">Incorrect authentication code</span>
+<span class="font-body-sm text-body-sm text-on-error-container">Incorrect code. 2 attempts remaining before auto-lockout.</span>
+</div>
+</div>
+<!-- Success Message Banner (Hidden in standard state) -->
+<div class="hidden bg-tertiary-container text-tertiary rounded-xl p-3 flex items-center gap-2.5 animate-fadeIn" id="successMessageBanner">
+<span class="material-symbols-outlined text-tertiary text-[20px] shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-tertiary">Number Verified</span>
+<span class="font-body-sm text-body-sm text-tertiary-fixed">Connected to Pune Metro Commuter Transit Profile</span>
+</div>
+</div>
+<!-- Countdown & Resend Interaction -->
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-numeric-md text-label-numeric-md" id="timerLabel">Resend code in <span class="text-on-surface font-bold text-secondary" id="timerClock">00:28</span></span>
+</div>
+<button class="px-3 py-1.5 rounded-lg font-label-ui text-label-ui bg-surface-container-highest text-on-surface-variant opacity-50 cursor-not-allowed flex items-center gap-1 transition-all" disabled="" id="resendBtn" type="button">
+<span class="material-symbols-outlined text-[15px]">refresh</span>
+        Resend SMS
+      </button>
+</div>
+</div>
+<!-- Prototype Notice Pill -->
+<div class="bg-surface-container-high rounded-xl p-3 mb-6 flex items-start gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="text-on-surface font-semibold">Prototype simulation:</strong> No actual SMS sent. Enter any 6 digits to proceed or test validation states using the top demo switcher.
+    </p>
+</div>
+<!-- Metro Passenger Safe Commute Assurance Tag -->
+<div class="bg-surface-container-low rounded-xl p-3.5 mb-6 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-[18px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-ui text-label-ui text-on-surface font-medium">Auto-Paired Pool Gate Access</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Civil Court Gate 3 Bike & Car Bay</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">chevron_right</span>
+</div>
+<!-- Primary Call-to-Action -->
+<div class="flex flex-col gap-3">
+<button class="w-full h-13 py-3.5 px-6 rounded-xl font-headline-sm text-headline-sm bg-secondary text-on-secondary flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all" id="ctaVerifyBtn" type="button">
+<span>Verify & Continue</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<div class="flex items-center justify-center gap-2 py-1 text-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[15px]">lock</span>
+<span class="font-label-ui text-label-ui text-on-surface-variant text-[11px]">Protected by Pune Mahanagar Metro Security Gateway</span>
+</div>
+</div>
+</div>
+<script>
+  // Simple state controller for Prototype demonstration
+  const inputs = document.querySelectorAll('.otp-digit');
+  const errorBanner = document.getElementById('errorMessageBanner');
+  const successBanner = document.getElementById('successMessageBanner');
+  const statusIndicator = document.getElementById('inputStatusIndicator');
+  const resendBtn = document.getElementById('resendBtn');
+  const timerClock = document.getElementById('timerClock');
+  const timerLabel = document.getElementById('timerLabel');
+  const ctaBtn = document.getElementById('ctaVerifyBtn');
+
+  // Input navigation helper
+  inputs.forEach((input, idx) => {
+    input.addEventListener('input', (e) => {
+      if (input.value.length === 1 && idx < inputs.length - 1) {
+        inputs[idx + 1].focus();
+      }
+      checkFilledStatus();
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !input.value && idx > 0) {
+        inputs[idx - 1].focus();
+      }
+    });
+  });
+
+  function checkFilledStatus() {
+    let filled = true;
+    inputs.forEach(i => { if (!i.value) filled = false; });
+    if (filled) {
+      statusIndicator.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Ready to verify';
+      statusIndicator.classList.remove('text-secondary');
+      statusIndicator.classList.add('text-tertiary');
+    } else {
+      statusIndicator.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span> Waiting for input';
+      statusIndicator.classList.remove('text-tertiary');
+      statusIndicator.classList.add('text-secondary');
+    }
+  }
+
+  // Prototype state switcher
+  window.setDemoState = function(state) {
+    const btnDefault = document.getElementById('btnStateDefault');
+    const btnError = document.getElementById('btnStateError');
+    const btnSuccess = document.getElementById('btnStateSuccess');
+
+    // Reset button styles
+    [btnDefault, btnError, btnSuccess].forEach(btn => {
+      btn.className = 'px-2.5 py-1 rounded font-label-ui text-label-ui text-on-surface-variant hover:text-on-surface text-[11px] transition-all duration-200';
+    });
+
+    // Reset digit boxes styling
+    inputs.forEach(input => {
+      input.classList.remove('bg-error-container', 'text-error', 'bg-tertiary-container', 'text-tertiary', 'shadow-[0_0_0_2px]', 'shadow-error');
+      input.classList.add('bg-surface-container-high', 'text-on-surface');
+    });
+
+    errorBanner.classList.add('hidden');
+    successBanner.classList.add('hidden');
+
+    if (state === 'default') {
+      btnDefault.className = 'px-2.5 py-1 rounded font-label-ui text-label-ui text-on-primary bg-secondary text-[11px] transition-all duration-200';
+      inputs[0].value = '8';
+      inputs[1].value = '4';
+      inputs[2].value = '2';
+      inputs[3].value = '';
+      inputs[4].value = '';
+      inputs[5].value = '';
+      inputs[3].focus();
+      checkFilledStatus();
+    } else if (state === 'error') {
+      btnError.className = 'px-2.5 py-1 rounded font-label-ui text-label-ui text-on-primary bg-error text-[11px] transition-all duration-200';
+      const wrongCodes = ['9', '1', '0', '4', '8', '2'];
+      inputs.forEach((input, i) => {
+        input.value = wrongCodes[i];
+        input.classList.remove('bg-surface-container-high', 'text-on-surface');
+        input.classList.add('bg-error-container', 'text-error', 'shadow-[0_0_0_2px]', 'shadow-error');
+      });
+      errorBanner.classList.remove('hidden');
+      statusIndicator.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Verification failed';
+      statusIndicator.classList.remove('text-secondary', 'text-tertiary');
+      statusIndicator.classList.add('text-error');
+    } else if (state === 'success') {
+      btnSuccess.className = 'px-2.5 py-1 rounded font-label-ui text-label-ui text-on-tertiary bg-tertiary text-[11px] transition-all duration-200';
+      const validCodes = ['8', '4', '2', '6', '1', '9'];
+      inputs.forEach((input, i) => {
+        input.value = validCodes[i];
+        input.classList.remove('bg-surface-container-high', 'text-on-surface');
+        input.classList.add('bg-tertiary-container', 'text-tertiary');
+      });
+      successBanner.classList.remove('hidden');
+      statusIndicator.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Authenticated';
+      statusIndicator.classList.remove('text-secondary', 'text-error');
+      statusIndicator.classList.add('text-tertiary');
+    }
+  };
+
+  // Timer countdown simulation
+  let countdown = 28;
+  const timerInterval = setInterval(() => {
+    if (countdown > 0) {
+      countdown--;
+      timerClock.innerText = `00:${countdown < 10 ? '0' + countdown : countdown}`;
+    } else {
+      clearInterval(timerInterval);
+      timerClock.innerText = '00:00';
+      timerLabel.innerText = 'Code expired';
+      resendBtn.removeAttribute('disabled');
+      resendBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-surface-container-highest', 'text-on-surface-variant');
+      resendBtn.classList.add('bg-secondary', 'text-on-secondary', 'cursor-pointer');
+    }
+  }, 1000);
+
+  // Quick CTA action
+  ctaBtn.addEventListener('click', () => {
+    let filled = true;
+    inputs.forEach(i => { if (!i.value) filled = false; });
+    if (!filled) {
+      setDemoState('error');
+    } else {
+      setDemoState('success');
+    }
+  });
+</script></main></body></html>

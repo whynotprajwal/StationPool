@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;background-color:#f8f9ff;-webkit-tap-highlight-color:transparent;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-fixed-variant": "#004b74", "primary": "#000412", "surface-bright": "#f8f9ff", "on-primary-container": "#7886a3", "background": "#f8f9ff", "outline": "#75777e", "on-tertiary-fixed": "#002113", "surface-container-high": "#dce9ff", "on-secondary": "#ffffff", "on-primary-fixed-variant": "#394761", "outline-variant": "#c5c6ce", "tertiary-fixed": "#6ffbbe", "on-secondary-fixed": "#001d32", "secondary-container": "#67bafd", "tertiary-fixed-dim": "#4edea3", "on-error-container": "#93000a", "inverse-primary": "#b8c7e6", "on-secondary-container": "#004972", "on-primary": "#ffffff", "primary-fixed": "#d7e3ff", "primary-container": "#0f1e36", "surface-variant": "#d3e4fe", "error-container": "#ffdad6", "on-tertiary-fixed-variant": "#005236", "on-background": "#0b1c30", "surface-tint": "#515f7a", "on-primary-fixed": "#0c1b33", "on-error": "#ffffff", "on-tertiary-container": "#009969", "inverse-surface": "#213145", "surface-container": "#e5eeff", "surface-container-highest": "#d3e4fe", "tertiary": "#000703", "tertiary-container": "#002416", "surface-container-lowest": "#ffffff", "secondary": "#006399", "surface-dim": "#cbdbf5", "secondary-fixed-dim": "#94ccff", "on-surface": "#0b1c30", "on-surface-variant": "#44474d", "inverse-on-surface": "#eaf1ff", "surface": "#f8f9ff", "on-tertiary": "#ffffff", "secondary-fixed": "#cde5ff", "surface-container-low": "#eff4ff", "error": "#ba1a1a", "primary-fixed-dim": "#b8c7e6" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin-desktop": "2rem", "space-sm": "0.5rem", "space-lg": "1rem", "space-xs": "0.25rem", "margin-tablet": "1.5rem", "space-xxl": "2rem", "space-xl": "1.5rem", "space-xxs": "0.125rem", "gutter": "1rem", "space-md": "0.75rem", "margin": "1rem" }, "fontFamily": { "body-sm": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-ui": ["Plus Jakarta Sans"], "label-numeric-lg": ["JetBrains Mono"], "headline-lg": ["Plus Jakarta Sans"], "label-numeric-md": ["JetBrains Mono"], "display-lg": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-numeric-sm": ["JetBrains Mono"] }, "fontSize": { "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "label-ui": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "label-numeric-lg": ["22px", { "lineHeight": "28px", "letterSpacing": "0.02em", "fontWeight": "700" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-numeric-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }], "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-numeric-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(15,30,54,0.05)] pt-safe"><div class="h-20 px-margin flex flex-col justify-center gap-space-xxs"><div class="flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><img alt="StationPool Transit Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2ZOjeTRPo451j8EMdEKyNs88XISIl16veK-y09xGu58TuvaaI_SUtTjfDSiU9Lzj0CXXPz_kKrSa_RP1Qg-GGuH4pXz3fvlD_wFBsIY2QVd_xScvxdk4Ee-thUOPRjfGanwEIZ0xNE0l__G-R2IDcVAMVMfLMFBeAi2VsWR-T0-t4y5vuOYMTrDM9aioeD0a-eEl8Z1269N_QpXUiGNjXmA3GWgmunk4CWTn1DQcOen1Ts7-xDIMd"/><span class="font-headline-sm text-headline-sm text-primary tracking-tight font-extrabold">StationPool</span><span class="hidden sm:inline font-headline-sm text-headline-sm text-outline-variant font-light">/</span><span class="hidden sm:inline font-label-ui text-label-ui text-on-surface-variant font-semibold">Pool & Metro</span></div><div class="flex items-center gap-space-xs"><div class="inline-flex items-center gap-space-xxs bg-surface-container-low px-space-xs py-space-xxs rounded-full"><span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span><span class="font-label-numeric-sm text-label-numeric-sm text-on-secondary-container font-semibold">Aqua & Purple</span></div><button aria-label="Commuter Profile" class="relative p-space-xxs rounded-full hover:bg-surface-container-high transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNv17np4c6cCm7gVKVQaXtULLZJwi8S_Qhpwzqe4V3Hp2Sv4SZcX4lBU3SDhE1Zs8bGbYp2GhT5W2JsdjGcBiPOF-5y7k3uQa52QRq7iRiZjgrxeRullKqCIE84iz75rFBji1jZC7bESo9GGV_z-xIu12-gIy57vmJceLXiQ_sph9MAOEj1knGH9pZzRc7FlFOPECb7g4K6SGCpemUinWFoi9nqwcY5Tjcjf7x49ISaXrDhWzl6MbQ"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-tertiary-fixed-dim rounded-full ring-2 ring-surface-container-lowest"></span></button></div></div><div class="flex items-center justify-between"><div class="inline-flex items-center gap-space-xxs"><span class="material-symbols-outlined text-secondary text-[14px]">verified</span><span class="font-label-numeric-sm text-label-numeric-sm text-secondary font-medium tracking-wide">Simulated Pune Metro Integration</span></div><span class="font-label-ui text-label-ui text-on-surface-variant sm:hidden">Pool & Metro</span></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-20 bg-surface"><div class="flex flex-col w-full px-margin pb-space-xxl gap-space-lg">
+<!-- Interactive State Switcher (Prototype Control for Live Demos) -->
+<div class="flex items-center justify-between bg-surface-container-high p-space-xs rounded-xl shadow-sm">
+<div class="flex items-center gap-space-xxs text-primary">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span class="font-label-ui text-label-ui text-primary">Demo State:</span>
+</div>
+<div class="flex gap-space-xxs">
+<button class="px-space-xs py-space-xxs rounded-lg font-label-ui text-label-ui bg-surface-container-lowest text-primary shadow-sm transition-all" id="btn-state-searching" onclick="switchState('searching')">Scanning</button>
+<button class="px-space-xs py-space-xxs rounded-lg font-label-ui text-label-ui text-on-surface-variant hover:text-primary transition-all" id="btn-state-matches" onclick="switchState('matches')">3 Matches</button>
+<button class="px-space-xs py-space-xxs rounded-lg font-label-ui text-label-ui text-on-surface-variant hover:text-primary transition-all" id="btn-state-nomatch" onclick="switchState('nomatch')">Backup Bus</button>
+</div>
+</div>
+<!-- Metro Integration & Active Ticket Card -->
+<div class="relative overflow-hidden bg-primary-container text-on-primary rounded-xl shadow-md p-space-lg flex flex-col gap-space-md">
+<div class="absolute -right-8 -bottom-10 w-44 h-44 bg-secondary-container/10 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Header of Metro Card -->
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]">directions_subway</span>
+</span>
+<div>
+<div class="flex items-center gap-space-xxs">
+<span class="font-label-ui text-label-ui text-secondary-container tracking-wider uppercase">Aqua Line #2</span>
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-tertiary-fixed-dim font-semibold">Active Token</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-primary font-bold">Vanaz ➔ Ramwadi</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-sm text-label-numeric-sm text-surface-variant">Arrival Ramwadi</span>
+<p class="font-label-numeric-md text-label-numeric-md text-secondary-fixed font-bold">09:22 AM</p>
+<span class="font-label-numeric-sm text-label-numeric-sm text-tertiary-fixed-dim bg-tertiary-container/60 px-space-xxs py-0.5 rounded">in 14 mins</span>
+</div>
+</div>
+<!-- Live Transit Progress Bar -->
+<div class="bg-primary/40 rounded-xl p-space-sm flex flex-col gap-space-xs relative z-10">
+<div class="flex items-center justify-between font-label-ui text-label-ui text-on-primary-container">
+<span class="flex items-center gap-space-xxs text-surface-bright">
+<span class="w-2 h-2 rounded-full bg-secondary-container animate-ping"></span>
+          Garware College
+        </span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-secondary-fixed font-medium">Onboard #AQ-108 (4 stops left)</span>
+<span class="text-surface-bright font-bold">Ramwadi</span>
+</div>
+<!-- Mini Station Track visualizer -->
+<div class="w-full h-1.5 bg-surface-container/20 rounded-full overflow-hidden relative">
+<div class="h-full bg-gradient-to-r from-secondary-container to-tertiary-fixed-dim rounded-full w-[72%] transition-all duration-700"></div>
+</div>
+</div>
+<!-- Perforated Notch Divider -->
+<div class="relative flex items-center justify-between -mx-space-lg px-space-xs">
+<div class="w-4 h-8 bg-surface rounded-r-full"></div>
+<div class="flex-1 border-t-2 border-dashed border-outline/30 mx-space-sm"></div>
+<div class="w-4 h-8 bg-surface rounded-l-full"></div>
+</div>
+<!-- Quick Import Action Buttons -->
+<div class="flex items-center gap-space-sm relative z-10 pt-space-xxs">
+<button class="flex-1 flex items-center justify-center gap-space-xs py-space-xs px-space-sm rounded-lg bg-surface-container-high/20 hover:bg-surface-container-high/30 text-surface-bright font-label-ui text-label-ui transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">qr_code_scanner</span>
+<span>Scan WhatsApp QR</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-space-xs py-space-xs px-space-sm rounded-lg bg-surface-container-high/20 hover:bg-surface-container-high/30 text-surface-bright font-label-ui text-label-ui transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed">credit_card</span>
+<span>Smart Card ID</span>
+</button>
+</div>
+</div>
+<!-- First/Last Mile Ride Match Request Panel -->
+<div class="bg-surface-container-lowest rounded-xl shadow-md p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[22px]">hub</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Where to after Ramwadi Metro?</h2>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-numeric-sm text-label-numeric-sm font-semibold">Bay 3</span>
+</div>
+<!-- Destination Input Pre-filled -->
+<div class="relative flex items-center bg-surface-container-low rounded-xl px-space-md py-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] mr-space-sm">pin_drop</span>
+<div class="flex-1 min-w-0">
+<span class="block font-label-numeric-sm text-label-numeric-sm text-on-surface-variant font-medium">Drop Destination (Auto-Detected)</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface font-bold truncate focus:outline-none cursor-default" readonly="" type="text" value="EON IT Park, Kharadi - Gate 2"/>
+</div>
+<span class="ml-space-xs font-label-numeric-sm text-label-numeric-sm text-secondary font-bold whitespace-nowrap bg-surface-container px-space-xs py-0.5 rounded">4.2 km</span>
+</div>
+<!-- Metro Sync Arrival Chip Toggle -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container-high/40 rounded-xl">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">schedule_send</span>
+<div>
+<span class="block font-label-ui text-label-ui text-on-surface font-semibold">Sync with Train Arrival</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">09:25 AM pick-up (3 mins buffer)</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-dim peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+<!-- Transit Mode Filter Tabs -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xxs">
+<!-- Bike Option (Recommended) -->
+<button class="relative flex flex-col p-space-sm rounded-xl bg-surface-container-low text-left shadow-sm transition-all ring-2 ring-secondary" id="tab-bike" onclick="selectMode('bike')" type="button">
+<div class="absolute -top-2.5 right-2 px-space-xs py-0.5 bg-tertiary-fixed text-on-tertiary-fixed font-label-numeric-sm text-label-numeric-sm font-bold rounded-full shadow-xs">
+          FAST EXIT
+        </div>
+<div class="flex items-center justify-between mb-space-xxs">
+<span class="text-xl">🛵</span>
+<span class="font-label-numeric-md text-label-numeric-md text-on-surface font-extrabold">₹25-₹30</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Bike/Scooter</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Beat Kharadi bypass rush</span>
+</button>
+<!-- Carpool Option -->
+<button class="relative flex flex-col p-space-sm rounded-xl bg-surface-container-lowest text-left shadow-sm transition-all opacity-85 hover:opacity-100" id="tab-car" onclick="selectMode('car')" type="button">
+<div class="flex items-center justify-between mb-space-xxs">
+<span class="text-xl">🚗</span>
+<span class="font-label-numeric-md text-label-numeric-md text-on-surface font-extrabold">₹55-₹60</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Carpool</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Air Conditioned</span>
+</button>
+</div>
+</div>
+<!-- Dynamic Live Matching Radar Pill / Status -->
+<div class="bg-primary text-on-primary p-space-sm rounded-xl shadow-md flex items-center justify-between" id="radar-banner">
+<div class="flex items-center gap-space-sm">
+<div class="relative flex items-center justify-center w-8 h-8">
+<span class="absolute w-8 h-8 rounded-full bg-secondary-container/40 animate-ping"></span>
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+</div>
+<div>
+<div class="font-label-ui text-label-ui text-secondary-container font-bold flex items-center gap-space-xxs">
+<span>LIVE RADAR</span>
+<span class="text-outline-variant">•</span>
+<span class="text-surface-bright">Pune Line 2 Commuters</span>
+</div>
+<p class="font-body-sm text-body-sm text-inverse-on-surface" id="radar-text">3 verified peer pools ready at Ramwadi exits</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary-fixed text-[20px] animate-pulse">radar</span>
+</div>
+<!-- STATE 1 & DEFAULT: Available Instant Peer Pools List -->
+<div class="flex flex-col gap-space-md" id="section-matches">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-extrabold">Available Matches</h3>
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+</div>
+<span class="font-label-numeric-sm text-label-numeric-sm text-secondary font-semibold">Prioritizing 2-Wheelers</span>
+</div>
+<!-- Match 1 (Bike 1st Priority): Amit Deshmukh -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of Amit Deshmukh, a friendly professional Indian corporate tech commuter wearing spectacles and a stylish backpack, clean daylight, high quality Pune city transit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALzfXWFwEv8oKIRNB8ZahBkEwmgenEwVYcJZzcS2yivP4MVvNH4Qq7ChV27h9plQzLpyLm0rL7QkpfJQA24E9cfEYhNI7CCILnfh-IPiF32ifn9-Ftpc3ChWaS6Oy1kHAGC0-Y3HJoTS47w_DQe1b8h5kez6_kPf0oic6JMwUaTmeU9Cem0l4XT_gleEi12bND_oej-EWo8wP_uEaqSc0MORU2BfiYzng6Wlu3UPMJlwLqpSZToSjK"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-tertiary-fixed-dim rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-on-tertiary-fixed font-bold">check</span>
+</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xxs">
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">Amit Deshmukh</h4>
+<span class="bg-surface-container px-space-xxs py-0.5 rounded text-on-surface-variant font-label-numeric-sm text-label-numeric-sm font-semibold">Infosys</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-numeric-sm text-label-numeric-sm">
+<span class="text-secondary font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.9
+              </span>
+<span>•</span>
+<span>142 pools</span>
+<span>•</span>
+<span class="text-on-tertiary-container font-semibold">98% on-time</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-lg text-label-numeric-lg text-primary font-extrabold">₹30</span>
+<span class="block font-label-numeric-sm text-label-numeric-sm text-on-surface-variant">Fuel split</span>
+</div>
+</div>
+<!-- Route & Gate Pickup Details -->
+<div class="bg-surface-container-low rounded-lg p-space-xs flex items-center justify-between text-on-surface">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">two_wheeler</span>
+<div>
+<span class="font-label-ui text-label-ui font-bold">Honda Activa 6G</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface-variant ml-space-xxs">(MH-12-EU-4412)</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 bg-surface-container rounded font-label-ui text-label-ui text-secondary font-semibold">Gate 3 Bike Bay</span>
+</div>
+<!-- Feature Tags & Join Button -->
+<div class="flex items-center justify-between pt-space-xxs">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-0.5 bg-surface-container-high px-space-xs py-0.5 rounded-full font-label-ui text-label-ui text-on-secondary-container">
+<span class="material-symbols-outlined text-[14px]">sports_motorsports</span> Clean Helmet
+          </span>
+<span class="inline-flex items-center gap-0.5 bg-surface-container px-space-xs py-0.5 rounded-full font-label-numeric-sm text-label-numeric-sm text-on-surface font-semibold">
+            Departure: 09:26 AM
+          </span>
+</div>
+<button class="px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-ui text-label-ui font-bold rounded-lg shadow-sm transition-transform active:scale-95" type="button">
+          Join Bike Pool
+        </button>
+</div>
+</div>
+<!-- Match 2 (Bike Priority): Neha Kulkarni -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of Neha Kulkarni, a young Indian female software engineer in smart casual attire with an eco-conscious demeanor, Pune tech park setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYDWcXu6JuGXA_R0MOFe9G_vq4ha-VdOxATsjf73e9JvHp8qgW_V2SmuqW08tT-af-XDRP9VSGEu8EnU4SXLhpaXOypBqqgF-dqsv0HwqkXHH75zT8bCjzPLVyTsXVJjDhGchS15Oa_7JoNe9Q4asIb5rgsl7fk8pr5pLI5ioqAcys14fdl9Oy_QvdCQwy0EQQQzlRmOviiWID9BBPlrmgzpCdePA7SNnIPvM3lFScsXxyiocY3o_8"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-tertiary-fixed-dim rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-on-tertiary-fixed font-bold">check</span>
+</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xxs">
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">Neha Kulkarni</h4>
+<span class="bg-surface-container px-space-xxs py-0.5 rounded text-on-surface-variant font-label-numeric-sm text-label-numeric-sm font-semibold">Wipro</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-numeric-sm text-label-numeric-sm">
+<span class="text-secondary font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.8
+              </span>
+<span>•</span>
+<span class="text-tertiary-container font-semibold">EV Rider</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-lg text-label-numeric-lg text-primary font-extrabold">₹25</span>
+<span class="block font-label-numeric-sm text-label-numeric-sm text-on-surface-variant">Eco share</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-xs flex items-center justify-between text-on-surface">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary-container text-[18px]">electric_scooter</span>
+<div>
+<span class="font-label-ui text-label-ui font-bold">Ather 450X EV</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface-variant ml-space-xxs">(Quiet & Green)</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 bg-surface-container rounded font-label-ui text-label-ui text-secondary font-semibold">Gate 1 Escalator</span>
+</div>
+<div class="flex items-center justify-between pt-space-xxs">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-0.5 bg-tertiary-fixed/30 px-space-xs py-0.5 rounded-full font-label-ui text-label-ui text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[14px]">eco</span> Zero Emissions
+          </span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface font-medium">Dep: 09:28 AM</span>
+</div>
+<button class="px-space-md py-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-ui text-label-ui font-bold rounded-lg shadow-sm transition-transform active:scale-95" type="button">
+          Join Bike Pool
+        </button>
+</div>
+</div>
+<!-- Match 3 (Car Option): Rajesh Verma -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm opacity-95">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of Rajesh Verma, senior corporate professional working at Barclays Pune, professional portrait with friendly smile, Pune urban background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDINTX2mPa5HozUuQ2t-7iMuLTLoRfjLGySHVK6fiVYJmi213l544XAq8A-v0nqwyNMGWBrxrN-iNlV3YZVS4i4NPRLhah-OzJBAPDLr2qt3WoXxSyBtQyIWUUJQ1zPcvX-ud6CzWogFsQGmrqLtOaqMG5FHZlO3UNsEVOaBaCgV9IE_Wm0KIMF-dUKknFavoV3RWPCmAneN3KJDurgoBDwgiyf72HcrUyvUZ7oJXe_2fht2hjfQPtY"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-tertiary-fixed-dim rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-on-tertiary-fixed font-bold">check</span>
+</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xxs">
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">Rajesh Verma</h4>
+<span class="bg-surface-container px-space-xxs py-0.5 rounded text-on-surface-variant font-label-numeric-sm text-label-numeric-sm font-semibold">Barclays</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-numeric-sm text-label-numeric-sm">
+<span class="text-secondary font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.9
+              </span>
+<span>•</span>
+<span class="text-secondary font-semibold">2 seats open</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-lg text-label-numeric-lg text-primary font-extrabold">₹60</span>
+<span class="block font-label-numeric-sm text-label-numeric-sm text-on-surface-variant">AC Comfort</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-xs flex items-center justify-between text-on-surface">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">directions_car</span>
+<div>
+<span class="font-label-ui text-label-ui font-bold">Tata Nexon EV</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface-variant ml-space-xxs">(MH-12-TK-9020)</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 bg-surface-container rounded font-label-ui text-label-ui text-secondary font-semibold">Pick-up Bay 4</span>
+</div>
+<div class="flex items-center justify-between pt-space-xxs">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-0.5 bg-surface-container px-space-xs py-0.5 rounded-full font-label-ui text-label-ui text-on-surface">
+<span class="material-symbols-outlined text-[14px]">ac_unit</span> Climate Control
+          </span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface font-medium">Dep: 09:27 AM</span>
+</div>
+<button class="px-space-md py-space-xs bg-surface-container-high hover:bg-secondary-fixed text-primary font-label-ui text-label-ui font-bold rounded-lg shadow-sm transition-transform active:scale-95" type="button">
+          Request Seat
+        </button>
+</div>
+</div>
+</div>
+<!-- STATE 2: Radar Scanning Animation Container (Toggled via JS) -->
+<div class="hidden flex-col items-center justify-center p-space-xl bg-surface-container-lowest rounded-xl shadow-sm text-center gap-space-md" id="section-searching">
+<div class="relative w-24 h-24 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full bg-secondary-container/20 animate-ping"></div>
+<div class="absolute inset-2 rounded-full bg-secondary/10 animate-pulse"></div>
+<div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-lg">
+<span class="material-symbols-outlined text-[28px] animate-spin">sync</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xxs max-w-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-extrabold">Syncing with Vanaz-Ramwadi Line...</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Broadcasting to 42 verified IT commuters stepping off at Ramwadi station in 14 minutes.</p>
+</div>
+<div class="w-full bg-surface-container-low p-space-sm rounded-lg flex items-center justify-center gap-space-xs text-secondary font-label-ui text-label-ui">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+<span>Corporate ID Verification Active</span>
+</div>
+</div>
+<!-- STATE 3: No Match Alert with PMPML / Walking Backup (Toggled via JS) -->
+<div class="hidden flex-col gap-space-md" id="section-nomatch">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="material-symbols-outlined text-[22px]">info</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">No Direct Peer Match for 09:25 AM</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Don't worry! We've prepared rapid backup public transit connections right outside Ramwadi exit gates:</p>
+<!-- PMPML Feeder Bus Card -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">directions_bus</span>
+</div>
+<div>
+<span class="block font-label-ui text-label-ui text-on-surface font-bold">PMPML Metro Feeder #14</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Ramwadi Gate 2 ➔ EON Free Zone</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-sm text-label-numeric-sm font-bold text-on-surface">Departs in 6m</span>
+<span class="block font-label-numeric-sm text-label-numeric-sm text-tertiary-container font-extrabold">₹10 (UPI)</span>
+</div>
+</div>
+<!-- Station Prepaid Auto Stand Option -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high text-on-secondary-container flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">local_taxi</span>
+</div>
+<div>
+<span class="block font-label-ui text-label-ui text-on-surface font-bold">Official Prepaid Auto Stand</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Pillar 24 • Metered Fare</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-sm text-label-numeric-sm font-bold text-on-surface">Immediate</span>
+<span class="block font-label-numeric-sm text-label-numeric-sm text-on-surface-variant font-bold">~₹65</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cost Saving / Eco Metrics Banner -->
+<div class="bg-surface-container rounded-xl p-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[20px]">savings</span>
+</div>
+<div>
+<span class="block font-label-ui text-label-ui text-on-surface font-bold">StationPool Daily Advantage</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Save ~₹110/day vs solitary app cabs</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-numeric-md text-label-numeric-md text-on-tertiary-container font-extrabold">-2.4 kg</span>
+<span class="block font-label-numeric-sm text-label-numeric-sm text-on-surface-variant">CO₂ offset</span>
+</div>
+</div>
+<!-- Disclaimer Footer Badge -->
+<div class="flex flex-col items-center justify-center text-center gap-space-xxs pt-space-xs text-on-surface-variant">
+<div class="inline-flex items-center gap-space-xxs bg-surface-container-low px-space-sm py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified_user</span>
+<span class="font-label-numeric-sm text-label-numeric-sm text-on-surface font-medium">Simulated Pune Metro Integration & Peer Matching</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">PMA transit schedules synchronized with Maharashtra Metro Rail Corporation guidelines.</p>
+</div>
+</div>
+<!-- State Management & Tab Interactions Script -->
+<script>
+  function switchState(state) {
+    const sectionMatches = document.getElementById('section-matches');
+    const sectionSearching = document.getElementById('section-searching');
+    const sectionNomatch = document.getElementById('section-nomatch');
+    const radarBanner = document.getElementById('radar-banner');
+    const radarText = document.getElementById('radar-text');
+
+    const btnMatches = document.getElementById('btn-state-matches');
+    const btnSearching = document.getElementById('btn-state-searching');
+    const btnNomatch = document.getElementById('btn-state-nomatch');
+
+    // Reset buttons
+    [btnMatches, btnSearching, btnNomatch].forEach(b => {
+      b.className = 'px-space-xs py-space-xxs rounded-lg font-label-ui text-label-ui text-on-surface-variant hover:text-primary transition-all';
+    });
+
+    if (state === 'matches') {
+      sectionMatches.classList.remove('hidden');
+      sectionMatches.classList.add('flex');
+      sectionSearching.classList.add('hidden');
+      sectionSearching.classList.remove('flex');
+      sectionNomatch.classList.add('hidden');
+      sectionNomatch.classList.remove('flex');
+      radarBanner.classList.remove('hidden');
+      radarText.textContent = '3 verified peer pools ready at Ramwadi exits';
+      btnMatches.className = 'px-space-xs py-space-xxs rounded-lg font-label-ui text-label-ui bg-surface-container-lowest text-primary shadow-sm transition-all';
+    } else if (state === 'searching') {
+      sectionMatches.classList.add('hidden');
+      sectionMatches.classList.remove('flex');
+      sectionSearching.classList.remove('hidden');
+      sectionSearching.classList.add('flex');
+      sectionNomatch.classList.add('hidden');
+      sectionNomatch.classList.remove('flex');
+      radarBanner.classList.remove('hidden');
+      radarText.textContent = 'Actively scanning Line 2 riders heading east...';
+      btnSearching.className = 'px-space-xs py-space-xxs rounded-lg font-label-ui text-label-ui bg-surface-container-lowest text-primary shadow-sm transition-all';
+    } else if (state === 'nomatch') {
+      sectionMatches.classList.add('hidden');
+      sectionMatches.classList.remove('flex');
+      sectionSearching.classList.add('hidden');
+      sectionSearching.classList.remove('flex');
+      sectionNomatch.classList.remove('hidden');
+      sectionNomatch.classList.add('flex');
+      radarBanner.classList.add('hidden');
+      btnNomatch.className = 'px-space-xs py-space-xxs rounded-lg font-label-ui text-label-ui bg-surface-container-lowest text-primary shadow-sm transition-all';
+    }
+  }
+
+  function selectMode(mode) {
+    const tabBike = document.getElementById('tab-bike');
+    const tabCar = document.getElementById('tab-car');
+
+    if (mode === 'bike') {
+      tabBike.classList.add('ring-2', 'ring-secondary', 'bg-surface-container-low');
+      tabBike.classList.remove('bg-surface-container-lowest', 'opacity-85');
+      tabCar.classList.remove('ring-2', 'ring-secondary', 'bg-surface-container-low');
+      tabCar.classList.add('bg-surface-container-lowest', 'opacity-85');
+      switchState('matches');
+    } else {
+      tabCar.classList.add('ring-2', 'ring-secondary', 'bg-surface-container-low');
+      tabCar.classList.remove('bg-surface-container-lowest', 'opacity-85');
+      tabBike.classList.remove('ring-2', 'ring-secondary', 'bg-surface-container-low');
+      tabBike.classList.add('bg-surface-container-lowest', 'opacity-85');
+    }
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(15,30,54,0.06)]" data-active-classes="text-secondary font-bold"><div class="grid grid-cols-4 items-center h-20 px-space-xs"><a class="flex flex-col items-center justify-center gap-space-xxs h-full text-on-surface-variant hover:text-on-surface transition-colors" data-path="pool-metro" href="#"><span class="material-symbols-outlined text-[24px]">directions_subway</span><span class="font-label-ui text-label-ui text-center leading-none">Pool & Metro</span></a><a class="flex flex-col items-center justify-center gap-space-xxs h-full text-on-surface-variant hover:text-on-surface transition-colors" data-path="offer-ride" href="#"><span class="material-symbols-outlined text-[24px]">add_circle</span><span class="font-label-ui text-label-ui text-center leading-none">Offer Ride</span></a><a class="flex flex-col items-center justify-center gap-space-xxs h-full text-on-surface-variant hover:text-on-surface transition-colors" data-path="live-pool" href="#"><span class="material-symbols-outlined text-[24px]">near_me</span><span class="font-label-ui text-label-ui text-center leading-none">Live Pool</span></a><a class="flex flex-col items-center justify-center gap-space-xxs h-full text-on-surface-variant hover:text-on-surface transition-colors" data-path="commuter-activity" href="#"><span class="material-symbols-outlined text-[24px]">history</span><span class="font-label-ui text-label-ui text-center leading-none">Activity</span></a></div></nav></body></html>

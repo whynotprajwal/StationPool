@@ -1,0 +1,16 @@
+[
+  "tests/test_api.py::test_api_auth_register_and_verify",
+  "tests/test_api.py::test_api_health_check",
+  "tests/test_api.py::test_api_seed_and_search_journeys",
+  "tests/test_api.py::test_api_stations",
+  "tests/test_models.py::test_driver_profile_relationship",
+  "tests/test_models.py::test_journey_model_and_relationships",
+  "tests/test_models.py::test_seat_request_model",
+  "tests/test_models.py::test_trip_and_verification_pin_security",
+  "tests/test_models.py::test_user_creation_and_defaults",
+  "tests/test_models.py::test_user_unique_mobile_constraint",
+  "tests/test_services.py::test_auth_service_full_flow",
+  "tests/test_services.py::test_driver_service_onboarding",
+  "tests/test_services.py::test_journey_service_lifecycle",
+  "tests/test_services.py::test_trip_service_and_pin_verification"
+]

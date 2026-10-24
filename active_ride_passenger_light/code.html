@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-error-container":"#93000a","on-tertiary-container":"#29a195","primary":"#00162d","inverse-primary":"#afc8ed","surface-container-high":"#dce9ff","surface-container":"#e5eeff","surface-bright":"#f8f9ff","surface-tint":"#476080","outline":"#74777e","on-primary-fixed":"#001c37","surface-container-low":"#eff4ff","on-tertiary-fixed-variant":"#005049","tertiary-fixed":"#89f5e7","primary-container":"#0f2b48","tertiary-fixed-dim":"#6bd8cb","on-primary-container":"#7a93b5","on-surface-variant":"#43474d","secondary-fixed-dim":"#5cd5f8","surface-container-highest":"#d3e4fe","on-tertiary-fixed":"#00201d","secondary":"#00677d","on-secondary":"#ffffff","on-secondary-fixed":"#001f27","on-secondary-fixed-variant":"#004e5f","background":"#f8f9ff","tertiary":"#001916","on-tertiary":"#ffffff","surface-container-lowest":"#ffffff","primary-fixed":"#d2e4ff","surface-variant":"#d3e4fe","on-background":"#0b1c30","primary-fixed-dim":"#afc8ed","error-container":"#ffdad6","on-primary-fixed-variant":"#2f4867","inverse-surface":"#213145","on-secondary-container":"#005e73","secondary-fixed":"#b3ebff","outline-variant":"#c4c6ce","error":"#ba1a1a","on-primary":"#ffffff","tertiary-container":"#00302b","surface-dim":"#cbdbf5","on-error":"#ffffff","inverse-on-surface":"#eaf1ff","on-surface":"#0b1c30","secondary-container":"#63dbfe","surface":"#f8f9ff"},borderRadius:{"DEFAULT":"1rem","lg":"2rem","xl":"3rem","full":"9999px"},spacing:{"space-lg":"1.5rem","margin":"1rem","margin-lg":"3rem","gutter-lg":"2rem","space-xs":"0.25rem","space-md":"1rem","gutter":"1rem","space-xl":"2rem","space-2xl":"3rem","gutter-md":"1.5rem","space-sm":"0.5rem","margin-md":"2rem"},fontFamily:{"headline-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"]},fontSize:{"headline-lg":["28px",{lineHeight:"36px",letterSpacing:"-0.01em",fontWeight:"700"}],"label-lg":["14px",{lineHeight:"20px",letterSpacing:"0.01em",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.03em",fontWeight:"700"}],"headline-sm":["18px",{lineHeight:"24px",fontWeight:"600"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"display-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"800"}],"headline-md":["22px",{lineHeight:"28px",letterSpacing:"-0.005em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"500"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"700"}],"display-lg-mobile":["32px",{lineHeight:"40px",letterSpacing:"-0.015em",fontWeight:"800"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(15,43,72,0.04)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Go Back" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface rounded-full hover:bg-surface-container" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-secondary"></span><span class="font-label-sm text-secondary uppercase">Active Transit</span></div><h1 class="font-headline-sm text-on-surface leading-tight truncate max-w-[150px]">Live Pool Tracking</h1></div></div><div class="flex items-center gap-space-xs"><button aria-label="Transit Emergency SOS" class="min-w-[44px] min-h-[44px] px-space-sm bg-error-container text-on-error-container rounded-full flex items-center justify-center gap-space-xs font-label-md active:scale-95 transition-transform"><span class="material-symbols-outlined text-[18px] text-error">emergency</span><span class="text-error">SOS</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-8">
+<!-- Live Trip Status Banner -->
+<section class="px-gutter pt-space-sm pb-space-xs">
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="inline-flex items-center gap-space-xs bg-secondary-fixed/50 text-on-secondary-fixed-variant px-space-sm py-1 rounded-full">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span class="font-label-sm uppercase tracking-wider">Ride in Progress</span>
+</div>
+<div class="inline-flex items-center gap-1 bg-surface-container-high text-primary px-space-sm py-1 rounded-full font-label-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified_user</span>
+<span>Metro Corridor Safe</span>
+</div>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-on-surface">En Route to EON IT Park</h2>
+<div class="flex items-baseline gap-space-xs text-on-surface-variant">
+<span class="font-headline-lg-mobile text-primary font-bold">09:35 AM</span>
+<span class="font-label-md text-secondary font-semibold">ETA</span>
+<span class="font-body-sm text-outline">• 2.8 km (approx 6 mins left)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Live Simulated Transit Route Map Card -->
+<section class="px-gutter py-space-xs">
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden flex flex-col">
+<div class="relative w-full h-56 bg-surface-container-low overflow-hidden" data-location="Ramwadi Metro Station to EON IT Park Kharadi Pune" style="">
+<!-- Route Overlay Canvas Element -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" fill="none" preserveaspectratio="none" viewbox="0 0 360 224">
+<!-- Background Road Mesh -->
+<path d="M -20,180 L 120,130 L 220,110 L 380,50" opacity="0.6" stroke="#CBD5E1" stroke-linecap="round" stroke-width="12"></path>
+<path d="M 120,130 L 150,220" opacity="0.4" stroke="#CBD5E1" stroke-width="8"></path>
+<path d="M 220,110 L 260,20" opacity="0.4" stroke="#CBD5E1" stroke-width="8"></path>
+<!-- Active Transit Path -->
+<path d="M 40,165 L 120,130 L 220,110 L 320,60" id="route-path" stroke="#00677d" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+<path d="M 40,165 L 120,130 L 220,110 L 320,60" stroke="#63dbfe" stroke-dasharray="4 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<!-- Origin Node: Ramwadi Gate 3 -->
+<circle cx="40" cy="165" fill="#00162d" r="7"></circle>
+<circle cx="40" cy="165" fill="#ffffff" r="3"></circle>
+<!-- Mid Landmark: New DP Road -->
+<circle cx="170" cy="120" fill="#00677d" opacity="0.5" r="4"></circle>
+<!-- Destination Node: EON Kharadi -->
+<circle cx="320" cy="60" fill="#00677d" opacity="0.2" r="9"></circle>
+<circle cx="320" cy="60" fill="#00677d" r="6"></circle>
+<circle cx="320" cy="60" fill="#ffffff" r="2.5"></circle>
+<!-- Dynamic Commuter Live Dot -->
+<g transform="translate(195, 115)">
+<circle cx="0" cy="0" fill="#63dbfe" opacity="0.4" r="14">
+<animate attributename="r" dur="2s" repeatcount="indefinite" values="8;18;8"></animate>
+<animate attributename="opacity" dur="2s" repeatcount="indefinite" values="0.6;0;0.6"></animate>
+</circle>
+<circle cx="0" cy="0" fill="#00677d" r="8"></circle>
+<circle cx="0" cy="0" fill="#ffffff" r="3.5"></circle>
+</g>
+</svg>
+<!-- Route floating chips -->
+<div class="absolute top-space-sm left-space-sm bg-surface-container-lowest/95 backdrop-blur px-space-sm py-1 rounded-full shadow-sm flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-primary font-semibold">New DP Rd Corridors</span>
+</div>
+<div class="absolute bottom-space-sm right-space-sm bg-primary text-on-primary px-space-sm py-1 rounded-full shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary-container">navigation</span>
+<span class="font-label-sm">Live GPS Tracked</span>
+</div>
+</div>
+<!-- Quick Route Leg Summary -->
+<div class="p-space-md bg-surface-container-lowest flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[18px]">two_wheeler</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-on-surface truncate">Ramwadi Gate 3 → EON Kharadi Gate 2</span>
+<span class="font-body-sm text-on-surface-variant truncate">Via Viman Nagar Bypass Connector</span>
+</div>
+</div>
+<button aria-label="Recenter map" class="shrink-0 p-2 text-primary rounded-full hover:bg-surface-container active:scale-95 transition-transform" id="recenter-btn">
+<span class="material-symbols-outlined text-[20px]">my_location</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Verified Driver & Vehicle Card -->
+<section class="px-gutter py-space-xs">
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-md">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="Close up warm portrait of Amit Deshmukh, a friendly professional Indian male engineer wearing glasses and a formal collared shirt, smiling under warm morning light with clean bokeh background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxxMldVNA2Tb8BuGF2kkN-BSvF-8T4jsyXF7K67ymw40jAHMOGaf42dAyDbf5sh9AtuJP4KxvsGzXvUquxPmeuCiy13_EZJ40ygeRllwo2-m7jqRFLjn_IULaPDpnZX2PyXDzLVbrHNH_TWgzViYYXDdvpfiIJPXdJpeLwbi3L-IIbJSNvvvYthBZU0-G6EL7IQyI_wRNXSxs-5tgFSoEH8W4Dk8-tm-9FZJF2J-s"/>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary rounded-full p-0.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-on-surface font-semibold">Amit Deshmukh</h3>
+<div class="inline-flex items-center gap-0.5 bg-surface-container px-1.5 py-0.5 rounded-full font-label-sm text-on-surface">
+<span class="material-symbols-outlined text-[13px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.9</span>
+</div>
+</div>
+<span class="font-body-sm text-secondary font-medium">Infosys • Pune Metro Pass Holder</span>
+<span class="font-body-sm text-on-surface-variant">940+ Commuter Pool Trips</span>
+</div>
+</div>
+<!-- Solo pillion status badge -->
+<span class="bg-surface-container-low text-primary px-space-xs py-1 rounded font-label-sm font-semibold">
+          Solo Ride
+        </span>
+</div>
+<!-- Vehicle details row -->
+<div class="bg-surface-container-low rounded p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">moped</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface font-bold tracking-wide">MH-12-EU-4412</span>
+<span class="font-body-sm text-on-surface-variant">Honda Activa 6G • Pearl Metallic White</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm uppercase text-outline">Helmet Provided</span>
+<div class="flex items-center justify-end gap-1 text-secondary">
+<span class="material-symbols-outlined text-[14px]">sports_motorsports</span>
+<span class="font-label-sm font-bold">Sanitized</span>
+</div>
+</div>
+</div>
+<!-- Quick Action Driver Comm Buttons -->
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="min-h-[48px] bg-primary text-on-primary rounded-full font-label-lg flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-sm" id="call-action-btn">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span>Masked Call</span>
+</button>
+<button class="min-h-[48px] bg-surface-container text-primary rounded-full font-label-lg flex items-center justify-center gap-2 hover:bg-surface-container-high active:scale-95 transition-transform" id="chat-action-btn">
+<span class="material-symbols-outlined text-[18px] text-secondary">chat_bubble</span>
+<span>Message Amit</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Live Safety & Guardian Command Section -->
+<section class="px-gutter py-space-xs">
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Section Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">shield</span>
+<h3 class="font-headline-sm text-on-surface">Transit Safety Net</h3>
+</div>
+<span class="font-label-sm bg-secondary-fixed/40 text-on-secondary-fixed-variant px-2 py-0.5 rounded-full font-bold">100% Monitored</span>
+</div>
+<!-- Live Monitoring Detail -->
+<div class="bg-surface-container-low rounded p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">local_police</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Maha Metro Transit Police</span>
+<span class="font-body-sm text-on-surface-variant">Live telemetry linked with Ramwadi Hub</span>
+</div>
+</div>
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+</div>
+<!-- Guardian SMS Sync Toggle -->
+<div class="flex items-center justify-between bg-surface-container-lowest p-space-xs rounded">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">family_restroom</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="font-label-md text-on-surface font-semibold">Guardian Sync Active</span>
+<span class="material-symbols-outlined text-[14px] text-secondary">check_circle</span>
+</div>
+<span class="font-body-sm text-on-surface-variant">Pooja (+91 98230 •••••)</span>
+</div>
+</div>
+<!-- Toggle Micro-component -->
+<button aria-pressed="true" class="w-12 h-7 bg-primary rounded-full p-1 transition-colors relative flex items-center" id="guardian-toggle">
+<span class="w-5 h-5 bg-white rounded-full transition-transform translate-x-5 shadow-sm block" id="toggle-knob"></span>
+</button>
+</div>
+<!-- High Priority SOS Button -->
+<button class="min-h-[48px] bg-error-container text-on-error-container rounded-full font-label-lg flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-sm" id="sos-btn">
+<span class="material-symbols-outlined text-error text-[20px]">e911_emergency</span>
+<span class="text-error font-bold tracking-wide">Emergency SOS Desk</span>
+</button>
+</div>
+</section>
+<!-- Ride Timeline Status Tracker -->
+<section class="px-gutter py-space-xs">
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-1">
+<h3 class="font-headline-sm text-on-surface">Journey Route Legs</h3>
+<span class="font-label-sm text-secondary font-bold">Step 3 of 4</span>
+</div>
+<div class="relative pl-6 flex flex-col gap-space-md">
+<!-- Connecting Vertical Timeline Line -->
+<div class="absolute left-2.5 top-2.5 bottom-2.5 w-0.5 bg-surface-container-highest"></div>
+<!-- Stop 1: Matched -->
+<div class="relative flex items-start gap-space-sm">
+<div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[13px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface font-semibold">Matched at Ramwadi Metro</span>
+<span class="font-body-sm text-on-surface-variant">09:12 AM • Automated Transit Peer match</span>
+</div>
+</div>
+<!-- Stop 2: Picked Up -->
+<div class="relative flex items-start gap-space-sm">
+<div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[13px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface font-semibold">Picked up at Gate 3 Bike Bay</span>
+<span class="font-body-sm text-on-surface-variant">09:18 AM • OTP Verified #4892</span>
+</div>
+</div>
+<!-- Stop 3: Active Leg -->
+<div class="relative flex items-start gap-space-sm">
+<div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs ring-4 ring-surface-container-highest">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-primary font-bold">En Route via New DP Road</span>
+<span class="bg-secondary-fixed/50 text-on-secondary-fixed-variant px-1.5 py-0.2 rounded font-label-sm font-semibold">Moving</span>
+</div>
+<span class="font-body-sm text-secondary font-medium">Clear transit corridor • 35 km/h avg speed</span>
+</div>
+</div>
+<!-- Stop 4: Drop-off Upcoming -->
+<div class="relative flex items-start gap-space-sm opacity-60">
+<div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">location_on</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface font-semibold">Drop-off at EON Kharadi Gate 2</span>
+<span class="font-body-sm text-on-surface-variant">Expected 09:35 AM • Designated Ride Drop Zone</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Financials & Fare Settlement Card -->
+<section class="px-gutter py-space-xs">
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]">account_balance_wallet</span>
+</div>
+<span class="font-label-md text-on-surface font-semibold">Fare &amp; Multimodal Metro Sync</span>
+</div>
+<span class="font-headline-sm text-primary font-bold">&amp;inr30.00</span>
+</div>
+<div class="bg-surface-container-low rounded p-space-sm flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">contactless</span>
+<span class="font-body-sm text-on-surface">Pune Metro One Smartcard (••8102)</span>
+</div>
+<span class="font-label-sm text-secondary font-bold">Auto-debit</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-outline">Seamless payment debited on Gate 2 geofence exit.</span>
+<button class="font-label-sm text-secondary font-bold hover:underline" id="fare-breakdown-btn">
+          Breakdown
+        </button>
+</div>
+</div>
+</section>
+<!-- Interactive Feedback Toast Container -->
+<div class="fixed bottom-4 left-4 right-4 bg-primary text-on-primary p-space-sm rounded-lg shadow-xl translate-y-28 transition-transform duration-300 z-50 flex items-center justify-between pointer-events-none" id="status-toast">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-[20px]" id="toast-icon">info</span>
+<span class="font-body-sm font-medium" id="toast-msg">Notification triggered</span>
+</div>
+<span class="font-label-sm text-secondary-container">Dismiss</span>
+</div>
+</div>
+<script>
+  (function() {
+    // Micro-interactions
+    const toast = document.getElementById('status-toast');
+    const toastMsg = document.getElementById('toast-msg');
+    const toastIcon = document.getElementById('toast-icon');
+
+    function showToast(message, icon) {
+      if (!toast) return;
+      toastMsg.textContent = message;
+      toastIcon.textContent = icon || 'info';
+      toast.classList.remove('translate-y-28');
+      setTimeout(() => {
+        toast.classList.add('translate-y-28');
+      }, 2600);
+    }
+
+    // Guardian SMS toggle
+    const guardianBtn = document.getElementById('guardian-toggle');
+    const toggleKnob = document.getElementById('toggle-knob');
+    let guardianActive = true;
+
+    if (guardianBtn && toggleKnob) {
+      guardianBtn.addEventListener('click', () => {
+        guardianActive = !guardianActive;
+        guardianBtn.setAttribute('aria-pressed', guardianActive);
+        if (guardianActive) {
+          guardianBtn.classList.remove('bg-outline-variant');
+          guardianBtn.classList.add('bg-primary');
+          toggleKnob.classList.remove('translate-x-0');
+          toggleKnob.classList.add('translate-x-5');
+          showToast('Guardian SMS location sync resumed', 'check_circle');
+        } else {
+          guardianBtn.classList.remove('bg-primary');
+          guardianBtn.classList.add('bg-outline-variant');
+          toggleKnob.classList.remove('translate-x-5');
+          toggleKnob.classList.add('translate-x-0');
+          showToast('Guardian location sync paused', 'notifications_off');
+        }
+      });
+    }
+
+    // Call Action
+    const callBtn = document.getElementById('call-action-btn');
+    if (callBtn) {
+      callBtn.addEventListener('click', () => {
+        showToast('Connecting via Maha Metro masked proxy...', 'call');
+      });
+    }
+
+    // Chat Action
+    const chatBtn = document.getElementById('chat-action-btn');
+    if (chatBtn) {
+      chatBtn.addEventListener('click', () => {
+        showToast('Opening secure in-ride messaging channel...', 'chat');
+      });
+    }
+
+    // Emergency SOS Trigger
+    const sosBtn = document.getElementById('sos-btn');
+    if (sosBtn) {
+      sosBtn.addEventListener('click', () => {
+        showToast('Alerting Transit Police Control Desk & Guardian...', 'emergency');
+      });
+    }
+
+    // Recenter map
+    const recenterBtn = document.getElementById('recenter-btn');
+    if (recenterBtn) {
+      recenterBtn.addEventListener('click', () => {
+        showToast('Re-centering on your live bike GPS beacon', 'my_location');
+      });
+    }
+
+    // Fare breakdown
+    const fareBtn = document.getElementById('fare-breakdown-btn');
+    if (fareBtn) {
+      fareBtn.addEventListener('click', () => {
+        showToast('Base fare: ₹20 + Platform share: ₹10 (Subsidized)', 'receipt_long');
+      });
+    }
+  })();
+</script></main></body></html>
