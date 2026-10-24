@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { apiService } from "../api/client";
 import { Trip } from "../types";
 import Navbar from "../components/Navbar";
+import TransitMap from "../components/TransitMap";
 
 export const PassengerActiveRidePage: React.FC = () => {
   const { tripId } = useParams<{ tripId: string }>();
@@ -52,9 +53,18 @@ export const PassengerActiveRidePage: React.FC = () => {
 
       <main className="flex-1 flex flex-col max-w-md mx-auto w-full pt-20 px-4 space-y-4">
         {/* Live Route Tracker Card */}
-        <div className="relative rounded-2xl bg-surface-container-high border border-surface-container-highest p-5 shadow-2xl overflow-hidden">
-          {/* Ambient indicator */}
-          <div className="flex items-center justify-between mb-4">
+        <div className="relative rounded-2xl bg-surface-container-high border border-surface-container-highest overflow-hidden shadow-2xl">
+          {/* Live Map */}
+          <TransitMap
+            originName={trip?.journey?.origin_station || "Ramwadi"}
+            destinationName={trip?.journey?.destination_zone || "EON IT Park Kharadi"}
+            progressPct={progressPct}
+            mode="active_ride"
+            height="240px"
+          />
+
+          {/* Overlay Status Bar */}
+          <div className="flex items-center justify-between p-4 border-t border-surface-container-highest">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-tertiary animate-ping"></span>
               <span className="font-label-ui text-xs font-bold uppercase tracking-wider text-tertiary">
@@ -66,50 +76,29 @@ export const PassengerActiveRidePage: React.FC = () => {
             </span>
           </div>
 
-          {/* Route path diagram */}
-          <div className="space-y-3">
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary shrink-0 mt-0.5">
-                <span className="material-symbols-outlined text-[14px]">directions_subway</span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs text-on-surface-variant">Departed from</p>
-                <p className="font-headline-sm text-sm font-bold text-on-surface">
-                  {trip?.journey?.origin_station || "Ramwadi"} Metro Station Gate 2
-                </p>
-              </div>
-            </div>
-
-            {/* Connecting corridor with animated car */}
-            <div className="pl-3 py-1 flex items-center gap-3">
-              <div className="w-0.5 h-12 bg-gradient-to-b from-secondary to-tertiary relative ml-[-1px]">
-                <div
-                  className="absolute w-4 h-4 rounded-full bg-secondary text-surface-container-lowest flex items-center justify-center -left-[7px] shadow-md transition-all duration-1000"
-                  style={{ top: `${progressPct}%` }}
-                >
-                  <span className="material-symbols-outlined text-[11px]">directions_car</span>
-                </div>
-              </div>
-              <span className="text-xs text-on-surface-variant font-mono pl-3">
-                Speed: 42 km/h • Kharadi Feeder Bypass
+          {/* Route summary row */}
+          <div className="px-4 pb-4 flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary shrink-0">
+                <span className="material-symbols-outlined text-[12px]">directions_subway</span>
+              </span>
+              <span className="font-bold text-on-surface">
+                {trip?.journey?.origin_station || "Ramwadi"}
               </span>
             </div>
-
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-tertiary-container flex items-center justify-center text-tertiary shrink-0 mt-0.5">
-                <span className="material-symbols-outlined text-[14px]">pin_drop</span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs text-on-surface-variant">Arriving at</p>
-                <p className="font-headline-sm text-sm font-bold text-on-surface">
-                  {trip?.journey?.destination_zone || "EON IT Park Kharadi"}
-                </p>
-              </div>
+            <span className="text-on-surface-variant font-mono">→</span>
+            <div className="flex items-center gap-1.5">
+              <span className="font-bold text-on-surface text-right">
+                {trip?.journey?.destination_zone || "EON IT Park"}
+              </span>
+              <span className="w-5 h-5 rounded-full bg-tertiary-container flex items-center justify-center text-tertiary shrink-0">
+                <span className="material-symbols-outlined text-[12px]">pin_drop</span>
+              </span>
             </div>
           </div>
 
           {/* Progress Bar */}
-          <div className="mt-5 w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden">
+          <div className="mx-4 mb-4 w-auto bg-surface-container-lowest h-2 rounded-full overflow-hidden">
             <div
               className="bg-gradient-to-r from-secondary to-tertiary h-full rounded-full transition-all duration-500"
               style={{ width: `${progressPct}%` }}

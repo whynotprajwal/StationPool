@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { apiService } from "../api/client";
 import { Journey } from "../types";
 import Navbar from "../components/Navbar";
+import TransitMap from "../components/TransitMap";
 
 export const MetroMatchingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -73,30 +74,25 @@ export const MetroMatchingPage: React.FC = () => {
       <Navbar title="Live Feeder Radar" subtitle={`Metro ${station} Exit`} showBack={true} />
 
       <main className="flex-1 flex flex-col max-w-lg mx-auto w-full pt-20 px-4 space-y-5">
-        {/* Radar Scanner Graphic */}
-        <div className="relative w-full py-8 flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-surface-container-low border border-surface-container-high/60 shadow-xl">
-          {/* Animated concentric radar circles */}
-          <div className="relative w-44 h-44 flex items-center justify-center">
-            <div className="absolute inset-0 rounded-full border border-secondary/20 animate-ping"></div>
-            <div className="absolute w-36 h-36 rounded-full border border-tertiary/30"></div>
-            <div className="absolute w-24 h-24 rounded-full border border-secondary/40"></div>
-            
-            {/* Center Pulsing Metro Beacon */}
-            <div className="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary shadow-lg z-10 animate-pulse">
-              <span className="material-symbols-outlined text-[28px]">directions_subway</span>
-            </div>
-          </div>
-
-          <div className="mt-4 text-center z-10">
-            <div className="flex items-center justify-center gap-2">
+        {/* Live Radar Map */}
+        <div className="relative w-full overflow-hidden rounded-2xl border border-surface-container-high/60 shadow-xl">
+          <TransitMap
+            originName={station}
+            destinationName={destination}
+            mode="radar"
+            height="260px"
+          />
+          {/* Overlay scan status badge */}
+          <div className="absolute bottom-3 left-3 right-3 z-10 flex items-center justify-between px-3 py-2 rounded-xl bg-surface-container-low/90 backdrop-blur-sm border border-surface-container-high/60">
+            <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
-              <span className="font-headline-sm text-base font-bold text-on-surface">
-                {isSearching ? "Scanning Station Perimeter..." : `${journeys.length} Feeder Pools Ready`}
+              <span className="font-headline-sm text-xs font-bold text-on-surface">
+                {isSearching ? "Scanning Station Perimeter..." : `${journeys.length} Feeder Pool${journeys.length !== 1 ? "s" : ""} Ready`}
               </span>
             </div>
-            <p className="text-xs text-on-surface-variant font-mono mt-1">
-              {station} Metro Exit → {destination}
-            </p>
+            <span className="text-[10px] text-on-surface-variant font-mono">
+              {station} → {destination}
+            </span>
           </div>
         </div>
 
