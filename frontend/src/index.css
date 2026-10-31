@@ -1,30 +1,251 @@
-/* StationPool Design System Base Styles */
-:root {
-  color-scheme: dark;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --app-max-width: 480px;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #031427;
+    color: #d3e4fe;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    overscroll-behavior-y: none;
+    background-image:
+      radial-gradient(900px 520px at 80% -10%, rgba(148, 204, 255, 0.1), transparent 60%),
+      radial-gradient(760px 480px at -10% 20%, rgba(78, 222, 163, 0.07), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(148, 204, 255, 0.35);
+    color: #00162d;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: rgba(197, 198, 206, 0.55);
+  }
+
+  select option {
+    background-color: #102034;
+    color: #d3e4fe;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
 }
 
-* {
-  box-sizing: border-box;
+@layer components {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .app-shell {
+    @apply relative mx-auto w-full min-h-screen;
+    max-width: var(--app-max-width);
+  }
+
+  .glass-card {
+    @apply relative overflow-hidden rounded-3xl border border-white/10 bg-surface-container/80 backdrop-blur-xl shadow-card;
+  }
+
+  .glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      140deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.01) 42%,
+      transparent 68%
+    );
+    pointer-events: none;
+  }
+
+  .glass-panel {
+    @apply rounded-2xl border border-white/10 bg-surface-container-high/70 backdrop-blur-xl;
+  }
+
+  .field {
+    @apply w-full rounded-2xl border border-white/10 bg-surface-container-low/80 px-4 py-3 text-sm text-on-surface outline-none transition-all duration-200;
+  }
+
+  .field:focus {
+    @apply border-secondary/70 bg-surface-container/90;
+    box-shadow: 0 0 0 4px rgba(148, 204, 255, 0.12);
+  }
+
+  .btn-primary {
+    @apply relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-brand-gradient px-5 py-3.5 text-sm font-extrabold text-ink shadow-glow transition-all duration-200;
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.975);
+  }
+
+  .btn-primary:disabled {
+    @apply cursor-not-allowed opacity-45;
+    transform: none;
+    filter: none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-surface-container-high/60 px-4 py-3 text-xs font-bold text-on-surface transition-all duration-200 hover:border-secondary/40 hover:bg-surface-container-high;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-bold text-on-surface-variant;
+  }
+
+  .chip-active {
+    @apply border-secondary/40 bg-secondary/15 text-secondary;
+  }
+
+  .eyebrow {
+    @apply text-[10px] font-extrabold uppercase tracking-[0.18em] text-secondary/90;
+  }
+
+  .label {
+    @apply text-[11px] font-bold uppercase tracking-[0.12em] text-on-surface-variant/80;
+  }
+
+  .stat-value {
+    @apply font-mono text-2xl font-extrabold tracking-tight text-on-surface;
+  }
+
+  .icon-btn {
+    @apply flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-on-surface-variant transition-all hover:border-secondary/40 hover:text-secondary active:scale-95;
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      rgba(38, 54, 74, 0.35) 25%,
+      rgba(38, 54, 74, 0.85) 50%,
+      rgba(38, 54, 74, 0.35) 75%
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer rounded-xl;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .material-symbols-outlined.fill {
+    font-variation-settings:
+      "FILL" 1,
+      "wght" 500,
+      "GRAD" 0,
+      "opsz" 24;
+  }
+
+  .safe-hover {
+    @media (hover: hover) {
+      @apply hover:brightness-110;
+    }
+  }
 }
 
-html,
-body,
-#root {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  background-color: #031427;
-  color: #d3e4fe;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
+/* Leaflet theme overrides */
+.leaflet-container {
+  background: #0b1c30 !important;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+.leaflet-tile {
+  filter: brightness(0.72) saturate(0.85) hue-rotate(175deg) contrast(1.05);
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.leaflet-control-zoom a {
+  background: #102034 !important;
+  color: #94ccff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #102034 !important;
+  color: #d3e4fe !important;
+  border: 1px solid rgba(148, 204, 255, 0.25);
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.9) !important;
+}
+
+.leaflet-popup-content {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.leaflet-control-attribution {
+  background: rgba(3, 20, 39, 0.75) !important;
+  color: #7886a3 !important;
+  font-size: 9px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #94ccff !important;
+}
+
+/* Utility for equal-height interactive list items */
+.tap-scale {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.tap-scale:active {
+  transform: scale(0.985);
 }

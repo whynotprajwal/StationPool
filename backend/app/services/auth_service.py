@@ -10,10 +10,21 @@ from app.db.models import User, UserRole
 from app.schemas.auth import UserCreate, UserResponse, TokenResponse
 
 
+def normalize_mobile(raw: str) -> str:
+    """Normalize Indian mobile numbers to a single canonical +91XXXXXXXXXX form."""
+    digits = "".join(ch for ch in (raw or "") if ch.isdigit())
+    if digits.startswith("91") and len(digits) > 10:
+        digits = digits[2:]
+    if digits.startswith("0") and len(digits) > 10:
+        digits = digits[1:]
+    digits = digits[-10:]
+    return f"+91{digits}"
+
+
 class AuthService:
     @staticmethod
     def get_user_by_mobile(db: Session, mobile_number: str) -> Optional[User]:
-        return db.query(User).filter(User.mobile_number == mobile_number.strip()).first()
+        return db.query(User).filter(User.mobile_number == normalize_mobile(mobile_number)).first()
 
     @staticmethod
     def get_user_by_id(db: Session, user_id: str) -> Optional[User]:
@@ -21,7 +32,7 @@ class AuthService:
 
     @staticmethod
     def register_user(db: Session, payload: UserCreate) -> Tuple[User, str]:
-        mobile = payload.mobile_number.strip()
+        mobile = normalize_mobile(payload.mobile_number)
         existing = db.query(User).filter(User.mobile_number == mobile).first()
         if existing:
             # Update user details if already registered
@@ -50,7 +61,7 @@ class AuthService:
 
     @staticmethod
     def request_otp(db: Session, mobile_number: str) -> Tuple[User, str]:
-        mobile = mobile_number.strip()
+        mobile = normalize_mobile(mobile_number)
         user = db.query(User).filter(User.mobile_number == mobile).first()
         if not user:
             # Auto-create guest commuter user
@@ -72,7 +83,7 @@ class AuthService:
 
     @staticmethod
     def verify_otp(db: Session, mobile_number: str, otp_code: str) -> TokenResponse:
-        mobile = mobile_number.strip()
+        mobile = normalize_mobile(mobile_number)
         user = db.query(User).filter(User.mobile_number == mobile).first()
         if not user:
             raise HTTPException(

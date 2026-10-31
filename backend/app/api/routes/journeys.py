@@ -42,12 +42,33 @@ def search_journeys(
     return [JourneyService.to_journey_response(j, db) for j in journeys]
 
 
+@router.get("/mine", response_model=List[JourneyResponse])
+def my_journeys(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """List journeys published by the signed-in driver."""
+    journeys = JourneyService.get_driver_journeys(db, current_user.id)
+    return [JourneyService.to_journey_response(j, db) for j in journeys]
+
+
 @router.get("/{journey_id}", response_model=JourneyResponse)
 def get_journey(journey_id: str, db: Session = Depends(get_db)):
     """Get details of a specific journey."""
     journey = JourneyService.get_journey_by_id(db, journey_id)
     if not journey:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Journey not found")
+    return JourneyService.to_journey_response(journey, db)
+
+
+@router.post("/{journey_id}/cancel", response_model=JourneyResponse)
+def cancel_journey(
+    journey_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Cancel a published journey and release its seats."""
+    journey = JourneyService.cancel_journey(db, journey_id, current_user.id)
     return JourneyService.to_journey_response(journey, db)
 
 

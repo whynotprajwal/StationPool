@@ -5,6 +5,9 @@ import pytest
 # Ensure backend root is in sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+# Never auto-seed the real database while running the test suite
+os.environ["AUTO_SEED"] = "false"
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool

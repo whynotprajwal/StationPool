@@ -28,6 +28,9 @@ class Settings(BaseModel):
     # Matching
     MATCH_WINDOW_MINUTES: int = 15
 
+    # Auto-seed demo commuters/journeys on startup (prototype/dev convenience)
+    AUTO_SEED: bool = os.getenv("AUTO_SEED", "true").lower() in ("1", "true", "yes")
+
     @property
     def cors_origins_list(self) -> List[str]:
         return [o.strip() for o in self.CORS_ORIGINS.split(",")]

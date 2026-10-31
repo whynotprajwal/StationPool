@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.db.database import get_db
+from app.db.database import get_db, SessionLocal
 from app.db.models import (
     User,
     UserRole,
@@ -21,97 +21,166 @@ from app.services.trip_service import TripService
 
 router = APIRouter(prefix="/seed", tags=["Seed"])
 
+DEMO_COMMUTERS = {
+    "rahul": "+919876543210",
+    "priya": "+919876543211",
+    "amit": "+919876543212",
+    "tanvi": "+919876543220",
+    "rohit": "+919876543221",
+}
 
-@router.post("")
-def seed_sample_data(db: Session = Depends(get_db)):
-    """Seed sample drivers, vehicles, and active journeys for immediate testing."""
+
+def _get_or_create_user(
+    db: Session,
+    full_name: str,
+    mobile: str,
+    role: UserRole,
+    email: str | None = None,
+) -> User:
+    user = db.query(User).filter(User.mobile_number == mobile).first()
+    if user:
+        return user
+    user = User(
+        full_name=full_name,
+        mobile_number=mobile,
+        email=email,
+        role=role,
+        is_verified=True,
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+def _get_or_create_driver_profile(
+    db: Session,
+    user: User,
+    vehicle_model: str,
+    vehicle_registration: str,
+    capacity: int,
+    available: int,
+    vehicle_category: VehicleCategory = VehicleCategory.FOUR_WHEELER,
+) -> DriverProfile:
+    profile = db.query(DriverProfile).filter(DriverProfile.user_id == user.id).first()
+    if profile:
+        return profile
+    profile = DriverProfile(
+        user_id=user.id,
+        id_type="Aadhaar",
+        id_number_masked="•••• •••• 8842",
+        dl_number="MH12-20180045612",
+        dl_expiry="2038-04-12",
+        id_verification_status=VerificationStatus.VERIFIED,
+        dl_verification_status=VerificationStatus.VERIFIED,
+        overall_status=VerificationStatus.VERIFIED,
+        vehicle_category=vehicle_category,
+        vehicle_make_model=vehicle_model,
+        vehicle_registration=vehicle_registration,
+        vehicle_capacity=capacity,
+        available_seats=available,
+        has_helmet=vehicle_category == VehicleCategory.TWO_WHEELER,
+        submitted_at=datetime.now(timezone.utc),
+        verified_at=datetime.now(timezone.utc),
+    )
+    db.add(profile)
+    db.commit()
+    db.refresh(profile)
+    return profile
+
+
+def _seed_completed_trip(
+    db: Session,
+    driver: User,
+    passenger: User,
+    origin: str,
+    destination: str,
+    cost: float,
+    when: datetime,
+) -> None:
+    """Create a historical completed journey + trip for the activity feed."""
+    existing = (
+        db.query(Journey)
+        .filter(
+            Journey.driver_id == driver.id,
+            Journey.origin_station == origin,
+            Journey.destination_zone == destination,
+            Journey.departure_time == when,
+        )
+        .first()
+    )
+    if existing:
+        return
+
+    journey = Journey(
+        driver_id=driver.id,
+        origin_station=origin,
+        destination_zone=destination,
+        destination_label="Main Gate",
+        departure_time=when,
+        vehicle_category=VehicleCategory.FOUR_WHEELER,
+        total_seats=3,
+        available_seats=2,
+        estimated_total_cost=cost,
+        status=JourneyStatus.COMPLETED,
+    )
+    db.add(journey)
+    db.commit()
+    db.refresh(journey)
+
+    db.add(
+        SeatRequest(
+            journey_id=journey.id,
+            passenger_id=passenger.id,
+            seats_requested=1,
+            status=RequestStatus.ACCEPTED,
+        )
+    )
+    trip = Trip(
+        journey_id=journey.id,
+        status=TripStatus.COMPLETED,
+        started_at=when,
+        completed_at=when + timedelta(minutes=22),
+    )
+    db.add(trip)
+    db.commit()
+
+
+def seed_sample_data(db: Session) -> dict:
+    """Seed demo drivers, passengers, live journeys, and trip history (idempotent)."""
     now = datetime.now(timezone.utc)
 
-    # 1. Driver: Rahul Deshmukh
-    rahul = db.query(User).filter(User.mobile_number == "+919876543210").first()
-    if not rahul:
-        rahul = User(
-            full_name="Rahul Deshmukh",
-            mobile_number="+919876543210",
-            email="rahul.deshmukh@cognizant.com",
-            role=UserRole.BOTH,
-            is_verified=True,
-        )
-        db.add(rahul)
-        db.commit()
-        db.refresh(rahul)
+    rahul = _get_or_create_user(
+        db, "Rahul Deshmukh", DEMO_COMMUTERS["rahul"], UserRole.BOTH, "rahul@cognizant.com"
+    )
+    _get_or_create_driver_profile(db, rahul, "Honda City (Silver)", "MH 12 QX 4509", 4, 3)
 
-        rahul_profile = DriverProfile(
-            user_id=rahul.id,
-            id_type="Aadhaar",
-            id_number_masked="•••• •••• 8842",
-            dl_number="MH12-20180045612",
-            dl_expiry="2038-04-12",
-            id_verification_status=VerificationStatus.VERIFIED,
-            dl_verification_status=VerificationStatus.VERIFIED,
-            overall_status=VerificationStatus.VERIFIED,
-            vehicle_category=VehicleCategory.FOUR_WHEELER,
-            vehicle_make_model="Honda City (Silver)",
-            vehicle_registration="MH 12 QX 4509",
-            vehicle_capacity=4,
-            available_seats=3,
-            has_helmet=False,
-            submitted_at=now,
-            verified_at=now,
-        )
-        db.add(rahul_profile)
-        db.commit()
+    priya = _get_or_create_user(
+        db, "Priya Sharma", DEMO_COMMUTERS["priya"], UserRole.BOTH, "priya@tcs.com"
+    )
+    _get_or_create_driver_profile(db, priya, "Hyundai Creta (White)", "MH 14 DE 7731", 4, 2)
 
-    # 2. Driver: Priya Sharma
-    priya = db.query(User).filter(User.mobile_number == "+919876543211").first()
-    if not priya:
-        priya = User(
-            full_name="Priya Sharma",
-            mobile_number="+919876543211",
-            email="priya.sharma@tcs.com",
-            role=UserRole.BOTH,
-            is_verified=True,
-        )
-        db.add(priya)
-        db.commit()
-        db.refresh(priya)
+    amit = _get_or_create_user(
+        db, "Amit Kulkarni", DEMO_COMMUTERS["amit"], UserRole.BOTH, "amit@infosys.com"
+    )
+    _get_or_create_driver_profile(
+        db,
+        amit,
+        "Ather 450X (Space Grey)",
+        "MH 12 AT 2210",
+        1,
+        1,
+        vehicle_category=VehicleCategory.TWO_WHEELER,
+    )
 
-        priya_profile = DriverProfile(
-            user_id=priya.id,
-            id_type="PAN Card",
-            id_number_masked="•••• •••• 1928",
-            dl_number="MH14-20200089332",
-            dl_expiry="2040-08-25",
-            id_verification_status=VerificationStatus.VERIFIED,
-            dl_verification_status=VerificationStatus.VERIFIED,
-            overall_status=VerificationStatus.VERIFIED,
-            vehicle_category=VehicleCategory.FOUR_WHEELER,
-            vehicle_make_model="Hyundai Creta (White)",
-            vehicle_registration="MH 14 DE 7731",
-            vehicle_capacity=4,
-            available_seats=2,
-            has_helmet=False,
-            submitted_at=now,
-            verified_at=now,
-        )
-        db.add(priya_profile)
-        db.commit()
+    tanvi = _get_or_create_user(
+        db, "Tanvi Joshi", DEMO_COMMUTERS["tanvi"], UserRole.PASSENGER, "tanvi@infosys.com"
+    )
+    rohit = _get_or_create_user(
+        db, "Rohit Patil", DEMO_COMMUTERS["rohit"], UserRole.PASSENGER, "rohit@persistent.com"
+    )
 
-    # 3. Passenger: Tanvi Joshi
-    tanvi = db.query(User).filter(User.mobile_number == "+919876543220").first()
-    if not tanvi:
-        tanvi = User(
-            full_name="Tanvi Joshi",
-            mobile_number="+919876543220",
-            email="tanvi.joshi@infosys.com",
-            role=UserRole.PASSENGER,
-            is_verified=True,
-        )
-        db.add(tanvi)
-        db.commit()
-        db.refresh(tanvi)
-
-    # 4. Journeys
+    # Live journey #1 — Rahul, Ramwadi → EON IT Park
     j1 = db.query(Journey).filter(Journey.driver_id == rahul.id).first()
     if not j1:
         j1 = Journey(
@@ -119,7 +188,7 @@ def seed_sample_data(db: Session = Depends(get_db)):
             origin_station="Ramwadi",
             destination_zone="EON IT Park Kharadi",
             destination_label="Gate 1 (Near Tower A)",
-            departure_time=now + timedelta(minutes=15),
+            departure_time=now + timedelta(minutes=12),
             vehicle_category=VehicleCategory.FOUR_WHEELER,
             total_seats=3,
             available_seats=2,
@@ -130,20 +199,20 @@ def seed_sample_data(db: Session = Depends(get_db)):
         db.commit()
         db.refresh(j1)
 
-        # Passenger booking
-        req1 = SeatRequest(
-            journey_id=j1.id,
-            passenger_id=tanvi.id,
-            seats_requested=1,
-            status=RequestStatus.ACCEPTED,
+        db.add(
+            SeatRequest(
+                journey_id=j1.id,
+                passenger_id=tanvi.id,
+                seats_requested=1,
+                status=RequestStatus.ACCEPTED,
+            )
         )
-        db.add(req1)
         db.commit()
 
-        # Seed Trip & dynamic PIN for j1
         trip1 = TripService.get_or_create_trip(db, j1.id)
         TripService.get_dynamic_pin(db, trip1.id, tanvi.id)
 
+    # Live journey #2 — Priya, Vanaz → Hinjawadi Phase 1
     j2 = db.query(Journey).filter(Journey.driver_id == priya.id).first()
     if not j2:
         j2 = Journey(
@@ -151,7 +220,7 @@ def seed_sample_data(db: Session = Depends(get_db)):
             origin_station="Vanaz",
             destination_zone="Hinjawadi Phase 1",
             destination_label="Wipro Circle",
-            departure_time=now + timedelta(minutes=25),
+            departure_time=now + timedelta(minutes=24),
             vehicle_category=VehicleCategory.FOUR_WHEELER,
             total_seats=3,
             available_seats=3,
@@ -162,8 +231,54 @@ def seed_sample_data(db: Session = Depends(get_db)):
         db.commit()
         db.refresh(j2)
 
+    # Live journey #3 — Amit (bike pool), Kalyani Nagar → Magarpatta
+    j3 = db.query(Journey).filter(Journey.driver_id == amit.id).first()
+    if not j3:
+        j3 = Journey(
+            driver_id=amit.id,
+            origin_station="Kalyani Nagar",
+            destination_zone="Magarpatta City",
+            destination_label="Destination Gate 3",
+            departure_time=now + timedelta(minutes=8),
+            vehicle_category=VehicleCategory.TWO_WHEELER,
+            total_seats=1,
+            available_seats=1,
+            estimated_total_cost=40.0,
+            status=JourneyStatus.OPEN,
+        )
+        db.add(j3)
+        db.commit()
+        db.refresh(j3)
+
+    # Historical trips for the activity feed
+    _seed_completed_trip(
+        db, rahul, tanvi, "Ramwadi", "EON IT Park Kharadi", 55.0, now - timedelta(days=1, hours=2)
+    )
+    _seed_completed_trip(
+        db, priya, tanvi, "Vanaz", "Hinjawadi Phase 1", 75.0, now - timedelta(days=2, hours=10)
+    )
+    _seed_completed_trip(
+        db, rahul, rohit, "Pune Railway Station", "Magarpatta City", 65.0, now - timedelta(days=3)
+    )
+
     return {
         "status": "success",
         "message": "Sample Pune Metro drivers, commuters, and feeder journeys seeded successfully!",
-        "seeded_journeys": [j1.id, j2.id if j2 else None],
+        "seeded_journeys": [j1.id, j2.id if j2 else None, j3.id if j3 else None],
     }
+
+
+@router.post("")
+def seed_endpoint(db: Session = Depends(get_db)):
+    """Seed sample drivers, vehicles, and active journeys for immediate testing."""
+    return seed_sample_data(db)
+
+
+def auto_seed_if_empty() -> None:
+    """Populate demo data on first startup so the prototype is never empty."""
+    db = SessionLocal()
+    try:
+        if db.query(Journey).count() == 0:
+            seed_sample_data(db)
+    finally:
+        db.close()

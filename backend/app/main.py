@@ -6,12 +6,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.db.database import init_db
 from app.api.routes import auth, driver, journeys, trips, stations, seed
+from app.api.routes.seed import auto_seed_if_empty
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Initialize DB tables on application startup
     init_db()
+    if settings.AUTO_SEED:
+        auto_seed_if_empty()
     yield
 
 

@@ -21,6 +21,26 @@ export interface DriverSummary {
   vehicle_registration?: string;
 }
 
+export interface DriverProfile {
+  id: string;
+  user_id: string;
+  id_type?: string;
+  id_number_masked?: string;
+  dl_number?: string;
+  dl_expiry?: string;
+  id_verification_status: string;
+  dl_verification_status: string;
+  overall_status: string;
+  vehicle_category?: "two_wheeler" | "four_wheeler";
+  vehicle_make_model?: string;
+  vehicle_registration?: string;
+  vehicle_capacity: number;
+  available_seats: number;
+  has_helmet: boolean;
+  submitted_at?: string;
+  verified_at?: string;
+}
+
 export interface Journey {
   id: string;
   driver_id: string;

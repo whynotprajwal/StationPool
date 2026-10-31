@@ -1,202 +1,357 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { apiService } from "../api/client";
-import { Journey } from "../types";
+import { useToast } from "../components/Toast";
+import type { Journey } from "../types";
 import Navbar from "../components/Navbar";
 import TransitMap from "../components/TransitMap";
+import SelectSheet from "../components/SelectSheet";
+import Segmented from "../components/Segmented";
+import DriverBadge from "../components/DriverBadge";
+import EmptyState from "../components/EmptyState";
+
+type SortMode = "best" | "cheapest" | "earliest";
+
+interface MatchState {
+  station?: string;
+  destination?: string;
+  vehicleCategory?: "four_wheeler" | "two_wheeler";
+}
 
 export const MetroMatchingPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { toast } = useToast();
 
-  const queryState = location.state as {
-    station?: string;
-    destination?: string;
-    vehicleCategory?: "four_wheeler" | "two_wheeler";
-  } | null;
-
-  const station = queryState?.station || "Ramwadi";
-  const destination = queryState?.destination || "EON IT Park Kharadi";
-
+  const queryState = location.state as MatchState | null;
+  const [station, setStation] = useState(queryState?.station || "Ramwadi");
+  const [destination, setDestination] = useState(
+    queryState?.destination || "EON IT Park Kharadi"
+  );
+  const [vehicleCategory, setVehicleCategory] = useState<"four_wheeler" | "two_wheeler">(
+    queryState?.vehicleCategory || "four_wheeler"
+  );
   const [journeys, setJourneys] = useState<Journey[]>([]);
+  const [stations, setStations] = useState<string[]>([]);
+  const [destinations, setDestinations] = useState<string[]>([]);
   const [isSearching, setIsSearching] = useState(true);
   const [selectedJourney, setSelectedJourney] = useState<Journey | null>(null);
-  const [bookingLoading, setBookingLoading] = useState(false);
+  const [bookingId, setBookingId] = useState<string | null>(null);
+  const [sortMode, setSortMode] = useState<SortMode>("best");
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
-    // Run search against backend
-    const fetchMatches = async () => {
-      try {
-        const results = await apiService.searchJourneys({
-          origin_station: station,
-          destination_zone: destination,
-        });
+    apiService
+      .getStations()
+      .then((data) => {
+        setStations(data.stations || []);
+        setDestinations(data.feeder_destinations || []);
+      })
+      .catch(() => undefined);
+  }, []);
 
-        // If no strict match, fetch all open journeys so user always has options
-        if (results.length === 0) {
-          const fallback = await apiService.searchJourneys();
-          setJourneys(fallback);
-        } else {
-          setJourneys(results);
-        }
-      } catch (err) {
-        console.error("Search error:", err);
-      } finally {
-        // Keep radar scan active for 1.5s for authentic transit radar experience
-        setTimeout(() => setIsSearching(false), 1400);
-      }
-    };
-
-    fetchMatches();
-  }, [station, destination]);
-
-  const handleConfirmMatch = async (journey: Journey) => {
-    setSelectedJourney(journey);
-    setBookingLoading(true);
+  const fetchMatches = async (silent = false) => {
+    if (!silent) setIsSearching(true);
     try {
-      // 1. Request seat
-      await apiService.requestSeat(journey.id, 1);
-      // 2. Start/fetch trip
-      const trip = await apiService.startTrip(journey.id);
-      // 3. Navigate to match confirmed screen
-      navigate(`/match/${journey.id}`, {
-        state: { tripId: trip.id, journey: journey },
+      const results = await apiService.searchJourneys({
+        origin_station: station,
+        destination_zone: destination,
+        vehicle_category: vehicleCategory,
       });
-    } catch (err: any) {
-      console.error(err);
-      alert(err.response?.data?.detail || "Booking failed");
-      setBookingLoading(false);
+      if (results.length === 0) {
+        const all = await apiService.searchJourneys({ vehicle_category: vehicleCategory });
+        setJourneys(all);
+      } else {
+        setJourneys(results);
+      }
+    } catch {
+      setJourneys([]);
+      toast("Could not reach the radar", "Check that the backend is running on port 8000.", "error");
+    } finally {
+      setIsSearching(false);
     }
   };
 
+  useEffect(() => {
+    const timer = window.setTimeout(() => fetchMatches(), 650);
+    return () => window.clearTimeout(timer);
+  }, [station, destination, vehicleCategory]);
+
+  const sortedJourneys = useMemo(() => {
+    const copy = [...journeys];
+    if (sortMode === "cheapest") return copy.sort((a, b) => a.estimated_total_cost - b.estimated_total_cost);
+    if (sortMode === "earliest")
+      return copy.sort(
+        (a, b) => new Date(a.departure_time).getTime() - new Date(b.departure_time).getTime()
+      );
+    return copy.sort((a, b) => b.available_seats - a.available_seats);
+  }, [journeys, sortMode]);
+
+  const stationOptions = stations.map((item) => ({
+    value: item,
+    label: item,
+    sub: "Pune Metro station",
+    icon: "directions_subway",
+  }));
+  const destinationOptions = destinations.map((item) => ({
+    value: item,
+    label: item,
+    sub: "Feeder destination",
+    icon: "apartment",
+  }));
+
+  const handleConfirmMatch = async (journey: Journey) => {
+    setSelectedJourney(journey);
+    setBookingId(journey.id);
+    try {
+      await apiService.requestSeat(journey.id, 1);
+      const trip = await apiService.startTrip(journey.id);
+      toast("Seat secured", `Your boarding PIN is ready for ${journey.origin_station}.`, "success");
+      navigate(`/match/${journey.id}`, { state: { tripId: trip.id, journey } });
+    } catch (err: unknown) {
+      const detail = (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
+      toast("Booking failed", detail || "This pool may have just filled up. Try another.", "error");
+    } finally {
+      setBookingId(null);
+    }
+  };
+
+  const minutesUntil = (iso: string) => {
+    const diff = Math.round((new Date(iso).getTime() - Date.now()) / 60000);
+    if (diff <= 0) return "Departing now";
+    if (diff < 60) return `Departs in ${diff} min`;
+    return `Departs in ${Math.floor(diff / 60)}h ${diff % 60}m`;
+  };
+
   return (
-    <div className="bg-surface font-body-md text-on-surface min-h-screen flex flex-col pb-12">
-      <Navbar title="Live Feeder Radar" subtitle={`Metro ${station} Exit`} showBack={true} />
+    <div className="mx-auto flex min-h-screen w-full max-w-[480px] flex-col pb-10">
+      <Navbar title="Live feeder radar" subtitle={`Metro ${station} exit`} showBack />
 
-      <main className="flex-1 flex flex-col max-w-lg mx-auto w-full pt-20 px-4 space-y-5">
-        {/* Live Radar Map */}
-        <div className="relative w-full overflow-hidden rounded-2xl border border-surface-container-high/60 shadow-xl">
-          <TransitMap
-            originName={station}
-            destinationName={destination}
-            mode="radar"
-            height="260px"
-          />
-          {/* Overlay scan status badge */}
-          <div className="absolute bottom-3 left-3 right-3 z-10 flex items-center justify-between px-3 py-2 rounded-xl bg-surface-container-low/90 backdrop-blur-sm border border-surface-container-high/60">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
-              <span className="font-headline-sm text-xs font-bold text-on-surface">
-                {isSearching ? "Scanning Station Perimeter..." : `${journeys.length} Feeder Pool${journeys.length !== 1 ? "s" : ""} Ready`}
-              </span>
-            </div>
-            <span className="text-[10px] text-on-surface-variant font-mono">
-              {station} → {destination}
-            </span>
-          </div>
-        </div>
-
-        {/* Results Section */}
-        <div className="flex flex-col space-y-3">
-          <div className="flex items-center justify-between px-1">
-            <span className="font-label-ui text-xs font-bold uppercase tracking-wider text-secondary">
-              Verified Commuter Drivers
-            </span>
-            <span className="text-xs text-tertiary font-mono">Arrival synced</span>
-          </div>
-
-          {isSearching ? (
-            <div className="space-y-3">
-              {[1, 2].map((i) => (
-                <div key={i} className="p-4 rounded-xl bg-surface-container-low animate-pulse flex flex-col gap-3">
-                  <div className="h-4 bg-surface-container-high rounded w-3/4"></div>
-                  <div className="h-3 bg-surface-container-high rounded w-1/2"></div>
-                </div>
-              ))}
-            </div>
-          ) : journeys.length === 0 ? (
-            <div className="p-6 rounded-2xl bg-surface-container text-center flex flex-col items-center gap-2">
-              <span className="material-symbols-outlined text-outline text-[40px]">near_me_disabled</span>
-              <p className="font-bold text-sm text-on-surface">No immediate drivers found</p>
-              <p className="text-xs text-on-surface-variant">Try selecting a different feeder destination or offer a ride yourself.</p>
+      <main className="flex flex-1 flex-col gap-4 px-4 pt-20">
+        {/* Map */}
+        <section className="glass-card animate-fadeIn p-1.5">
+          <div className="relative overflow-hidden rounded-[20px]">
+            <TransitMap originName={station} destinationName={destination} mode="radar" height="210px" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
+            <div className="absolute inset-x-2 bottom-2 flex items-center justify-between gap-2 rounded-xl border border-white/10 bg-surface-container/80 px-3 py-2 backdrop-blur">
+              <div className="flex min-w-0 items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-tertiary opacity-70" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-tertiary" />
+                </span>
+                <span className="truncate text-[11px] font-extrabold text-on-surface">
+                  {isSearching
+                    ? "Scanning station perimeter…"
+                    : `${sortedJourneys.length} pool${sortedJourneys.length === 1 ? "" : "s"} in range`}
+                </span>
+              </div>
               <button
-                onClick={() => navigate("/driver/publish")}
-                className="mt-2 px-4 py-2 rounded-xl bg-secondary text-surface-container-lowest font-bold text-xs"
+                onClick={() => fetchMatches()}
+                disabled={isSearching}
+                aria-label="Rescan pools"
+                className="flex h-7 w-7 items-center justify-center rounded-full bg-white/5 text-secondary transition hover:bg-white/10"
               >
-                Offer a Ride Instead
+                <span className={`material-symbols-outlined text-[16px] ${isSearching ? "animate-spin" : ""}`}>
+                  radar
+                </span>
               </button>
             </div>
-          ) : (
-            journeys.map((j) => (
-              <div
-                key={j.id}
-                className="p-4 rounded-2xl bg-surface-container-low border border-surface-container-high/80 hover:border-secondary/50 shadow-lg flex flex-col gap-3.5 transition-all"
+          </div>
+        </section>
+
+        {/* Refine */}
+        <section className="grid grid-cols-2 gap-2">
+          <SelectSheet
+            label="From"
+            value={station}
+            options={stationOptions.length ? stationOptions : [{ value: station, label: station }]}
+            onChange={setStation}
+            sheetTitle="Change metro exit"
+            searchPlaceholder="Search stations…"
+            icon="directions_subway"
+          />
+          <SelectSheet
+            label="To"
+            value={destination}
+            options={
+              destinationOptions.length ? destinationOptions : [{ value: destination, label: destination }]
+            }
+            onChange={setDestination}
+            sheetTitle="Change destination"
+            searchPlaceholder="Search destinations…"
+            icon="apartment"
+            accent="tertiary"
+          />
+        </section>
+
+        <Segmented
+          value={vehicleCategory}
+          onChange={setVehicleCategory}
+          options={[
+            { value: "four_wheeler", label: "Car pools", icon: "directions_car" },
+            { value: "two_wheeler", label: "Bike pools", icon: "two_wheeler" },
+          ]}
+          size="sm"
+        />
+
+        {/* Results header */}
+        <div className="flex items-center justify-between px-0.5">
+          <div>
+            <p className="eyebrow">Verified commuter drivers</p>
+            <p className="text-[10px] text-on-surface-variant">Arrival synced with metro feed</p>
+          </div>
+          <div className="flex gap-1 rounded-full border border-white/10 bg-white/[0.03] p-0.5">
+            {(
+              [
+                { value: "best", label: "Best" },
+                { value: "cheapest", label: "₹" },
+                { value: "earliest", label: "Soon" },
+              ] as const
+            ).map((option) => (
+              <button
+                key={option.value}
+                onClick={() => setSortMode(option.value)}
+                className={`rounded-full px-2.5 py-1 text-[10px] font-extrabold transition ${
+                  sortMode === option.value
+                    ? "bg-secondary/20 text-secondary"
+                    : "text-on-surface-variant"
+                }`}
               >
-                {/* Driver Info Header */}
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold text-base border border-secondary/30">
-                      {j.driver?.full_name ? j.driver.full_name[0] : "D"}
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-headline-sm text-sm font-bold text-on-surface">
-                          {j.driver?.full_name || "Rahul Deshmukh"}
-                        </span>
-                        <span className="material-symbols-outlined text-secondary text-[16px]">verified</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-on-surface-variant font-mono">
-                        <span className="flex items-center text-tertiary">
-                          ★ {j.driver?.rating || 4.9}
-                        </span>
-                        <span>•</span>
-                        <span>{j.driver?.vehicle_model || "Honda City"}</span>
-                      </div>
-                    </div>
-                  </div>
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
-                  <div className="text-right">
-                    <span className="font-headline-sm text-lg font-bold text-tertiary font-mono">
-                      ₹{j.estimated_total_cost}
-                    </span>
-                    <p className="text-[10px] text-on-surface-variant">per seat</p>
+        {/* Results */}
+        <section className="flex flex-col gap-2.5">
+          {isSearching ? (
+            [0, 1, 2].map((index) => (
+              <div key={index} className="glass-panel flex flex-col gap-3 p-4">
+                <div className="flex items-center gap-3">
+                  <div className="skeleton h-11 w-11 rounded-2xl" />
+                  <div className="flex flex-1 flex-col gap-2">
+                    <div className="skeleton h-3 w-1/2" />
+                    <div className="skeleton h-2.5 w-1/3" />
                   </div>
                 </div>
-
-                {/* Pickup and Timing */}
-                <div className="bg-surface-container rounded-xl p-3 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-secondary text-[18px]">pin_drop</span>
-                    <div>
-                      <p className="font-bold text-on-surface">{j.origin_station} Metro Gate 2</p>
-                      <p className="text-[11px] text-on-surface-variant">Feeder to {j.destination_zone}</p>
-                    </div>
-                  </div>
-                  <div className="text-right font-mono">
-                    <span className="text-secondary font-bold">Departs in 10m</span>
-                    <p className="text-[11px] text-tertiary">{j.available_seats} seats left</p>
-                  </div>
-                </div>
-
-                {/* Confirm CTA */}
-                <button
-                  onClick={() => handleConfirmMatch(j)}
-                  disabled={bookingLoading && selectedJourney?.id === j.id}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-secondary to-tertiary text-on-tertiary font-headline-sm text-xs font-bold uppercase tracking-wider shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-                >
-                  {bookingLoading && selectedJourney?.id === j.id ? (
-                    <span>Securing Seat...</span>
-                  ) : (
-                    <>
-                      <span>Match & Reserve Seat</span>
-                      <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                    </>
-                  )}
-                </button>
+                <div className="skeleton h-12 w-full" />
               </div>
             ))
+          ) : sortedJourneys.length === 0 ? (
+            <EmptyState
+              icon="near_me_disabled"
+              title="No pools on this route yet"
+              description="Try another station or destination, or publish your own feeder ride to help someone out."
+              actionLabel="Offer a ride instead"
+              onAction={() => navigate("/driver/publish")}
+            />
+          ) : (
+            sortedJourneys.map((journey) => {
+              const expanded = expandedId === journey.id;
+              const booking = bookingId === journey.id;
+              const isBike = journey.vehicle_category === "two_wheeler";
+              return (
+                <article
+                  key={journey.id}
+                  className="glass-card animate-fadeInUp p-4 transition-all hover:border-secondary/25"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <DriverBadge
+                      driver={journey.driver}
+                      subtitle={`${journey.driver?.vehicle_model || (isBike ? "Bike" : "Car")} · Pune Metro verified`}
+                      showCall={false}
+                    />
+                    <div className="shrink-0 text-right">
+                      <p className="font-mono text-lg font-extrabold leading-none text-tertiary">
+                        ₹{journey.estimated_total_cost}
+                      </p>
+                      <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.1em] text-on-surface-variant/60">
+                        per seat
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 flex items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-surface-container-low/60 px-3 py-2.5">
+                    <div className="flex min-w-0 items-center gap-2">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
+                        <span className="material-symbols-outlined text-[15px]">
+                          {isBike ? "two_wheeler" : "directions_car"}
+                        </span>
+                      </span>
+                      <div className="min-w-0">
+                        <p className="truncate text-[11px] font-extrabold text-on-surface">
+                          {journey.origin_station} → {journey.destination_zone}
+                        </p>
+                        <p className="truncate text-[10px] text-on-surface-variant">
+                          {journey.destination_label || "Feeder drop point"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      <p className="text-[10px] font-bold text-secondary">{minutesUntil(journey.departure_time)}</p>
+                      <p className="text-[10px] text-tertiary">{journey.available_seats} seats left</p>
+                    </div>
+                  </div>
+
+                  {expanded && (
+                    <div className="mt-2.5 grid grid-cols-3 gap-2 animate-fadeIn">
+                      {[
+                        { label: "Vehicle", value: journey.driver?.vehicle_registration || "—" },
+                        { label: "Seats", value: `${journey.available_seats}/${journey.total_seats}` },
+                        { label: "Type", value: isBike ? "Bike pool" : "Car pool" },
+                      ].map((item) => (
+                        <div key={item.label} className="rounded-xl bg-white/[0.03] p-2 text-center">
+                          <p className="text-[9px] font-bold uppercase tracking-[0.08em] text-on-surface-variant/60">
+                            {item.label}
+                          </p>
+                          <p className="mt-0.5 truncate font-mono text-[11px] font-bold text-on-surface">
+                            {item.value}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="mt-3 flex gap-2">
+                    <button
+                      onClick={() => setExpandedId(expanded ? null : journey.id)}
+                      className="icon-btn h-10 w-10 shrink-0"
+                      aria-label="Toggle details"
+                    >
+                      <span className="material-symbols-outlined text-[18px]">
+                        {expanded ? "expand_less" : "expand_more"}
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => handleConfirmMatch(journey)}
+                      disabled={bookingId !== null}
+                      className="btn-primary flex-1 py-2.5 text-xs"
+                    >
+                      {booking ? (
+                        <>
+                          <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-ink/70 border-t-transparent" />
+                          Securing seat…
+                        </>
+                      ) : (
+                        <>
+                          Match & reserve seat
+                          <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {selectedJourney?.id === journey.id && booking && (
+                    <p className="mt-2 text-center text-[10px] text-on-surface-variant">
+                      Generating your dynamic boarding PIN…
+                    </p>
+                  )}
+                </article>
+              );
+            })
           )}
-        </div>
+        </section>
       </main>
     </div>
   );

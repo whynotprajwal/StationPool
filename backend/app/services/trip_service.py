@@ -2,6 +2,7 @@
 from datetime import datetime, timedelta, timezone
 from typing import Optional, List, Dict
 from sqlalchemy.orm import Session
+from sqlalchemy import and_, or_
 from fastapi import HTTPException, status
 
 from app.core.security import hash_pin, generate_trip_pin
@@ -183,6 +184,28 @@ class TripService:
             attempts_remaining=5,
             is_trip_started=True,
         )
+
+    @staticmethod
+    def get_user_trips(db: Session, user_id: str) -> List[TripResponse]:
+        """All trips the user is involved in, as driver or accepted passenger."""
+        trip_rows = (
+            db.query(Trip)
+            .join(Journey, Trip.journey_id == Journey.id)
+            .outerjoin(SeatRequest, SeatRequest.journey_id == Journey.id)
+            .filter(
+                or_(
+                    Journey.driver_id == user_id,
+                    and_(
+                        SeatRequest.passenger_id == user_id,
+                        SeatRequest.status == RequestStatus.ACCEPTED,
+                    ),
+                )
+            )
+            .distinct()
+            .order_by(Trip.created_at.desc())
+            .all()
+        )
+        return [TripService.get_trip_details(db, t.id) for t in trip_rows]
 
     @staticmethod
     def complete_trip(db: Session, trip_id: str) -> Trip:

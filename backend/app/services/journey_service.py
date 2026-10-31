@@ -5,7 +5,16 @@ from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from fastapi import HTTPException, status
 
-from app.db.models import Journey, JourneyStatus, SeatRequest, RequestStatus, User, DriverProfile, VehicleCategory
+from app.db.models import (
+    Journey,
+    JourneyStatus,
+    SeatRequest,
+    RequestStatus,
+    User,
+    UserRole,
+    DriverProfile,
+    VehicleCategory,
+)
 from app.schemas.journey import JourneyCreate, JourneyResponse, DriverSummary
 
 
@@ -65,6 +74,15 @@ class JourneyService:
         if not user:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Driver not found")
 
+        has_driver_profile = (
+            db.query(DriverProfile).filter(DriverProfile.user_id == driver_id).first() is not None
+        )
+        if user.role == UserRole.PASSENGER and not has_driver_profile:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Complete driver verification before publishing a ride.",
+            )
+
         journey = Journey(
             driver_id=driver_id,
             origin_station=payload.origin_station.strip(),
@@ -85,6 +103,34 @@ class JourneyService:
     @staticmethod
     def get_journey_by_id(db: Session, journey_id: str) -> Optional[Journey]:
         return db.query(Journey).filter(Journey.id == journey_id).first()
+
+    @staticmethod
+    def get_driver_journeys(db: Session, driver_id: str) -> List[Journey]:
+        return (
+            db.query(Journey)
+            .filter(Journey.driver_id == driver_id)
+            .order_by(Journey.created_at.desc())
+            .all()
+        )
+
+    @staticmethod
+    def cancel_journey(db: Session, journey_id: str, driver_id: str) -> Journey:
+        journey = db.query(Journey).filter(Journey.id == journey_id).first()
+        if not journey:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Journey not found")
+        if journey.driver_id != driver_id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Only the journey owner can cancel this ride.",
+            )
+        journey.status = JourneyStatus.CANCELLED
+        db.query(SeatRequest).filter(
+            SeatRequest.journey_id == journey_id,
+            SeatRequest.status.in_([RequestStatus.PENDING, RequestStatus.ACCEPTED]),
+        ).update({SeatRequest.status: RequestStatus.CANCELLED})
+        db.commit()
+        db.refresh(journey)
+        return journey
 
     @staticmethod
     def search_journeys(

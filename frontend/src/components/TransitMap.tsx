@@ -76,6 +76,16 @@ export const TransitMap: React.FC<TransitMapProps> = ({
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
+    // Soft pulsing halo behind the metro gate
+    L.circleMarker(originCoords, {
+      radius: 18,
+      color: "#94ccff",
+      weight: 1,
+      opacity: 0.45,
+      fillColor: "#94ccff",
+      fillOpacity: 0.08,
+    }).addTo(map);
+
     // Custom Origin Marker (Metro Station)
     const metroIcon = L.divIcon({
       className: "custom-metro-icon",
@@ -115,13 +125,16 @@ export const TransitMap: React.FC<TransitMapProps> = ({
       }).addTo(map);
 
       // Add nearby drivers around station
-      const mockDriverOffsets = [
-        { lat: 0.003, lng: 0.004, name: "Rahul Deshmukh", car: "Honda City", seats: 3 },
-        { lat: -0.002, lng: 0.005, name: "Priya Sharma", car: "Hyundai Creta", seats: 2 },
-        { lat: 0.004, lng: -0.003, name: "Amit Kulkarni", car: "Ather 450X", seats: 1 },
+      const fallbackDrivers: DriverMarker[] = [
+        { id: "demo-1", name: "Rahul Deshmukh", vehicle: "Honda City", seats: 3, offsetLat: 0.003, offsetLng: 0.004 },
+        { id: "demo-2", name: "Priya Sharma", vehicle: "Hyundai Creta", seats: 2, offsetLat: -0.002, offsetLng: 0.005 },
+        { id: "demo-3", name: "Amit Kulkarni", vehicle: "Ather 450X", seats: 1, offsetLat: 0.004, offsetLng: -0.003 },
       ];
+      const nearbyDrivers = (drivers.length ? drivers : fallbackDrivers).slice(0, 5);
 
-      mockDriverOffsets.forEach((d) => {
+      nearbyDrivers.forEach((d, index) => {
+        const lat = d.offsetLat ?? 0.0025 * Math.cos(index * 2.1);
+        const lng = d.offsetLng ?? 0.003 * Math.sin(index * 2.1);
         const carIcon = L.divIcon({
           className: "driver-car-icon",
           html: `
@@ -140,18 +153,20 @@ export const TransitMap: React.FC<TransitMapProps> = ({
               white-space: nowrap;
             ">
               <span style="width: 7px; height: 7px; border-radius: 50%; background: #4edea3;"></span>
-              ${d.car.split(" ")[0]}
+              ${d.vehicle.split(" ")[0]}
             </div>
           `,
           iconSize: [80, 24],
           iconAnchor: [40, 12],
         });
 
-        const dMarker = L.marker([originCoords[0] + d.lat, originCoords[1] + d.lng], {
+        const dMarker = L.marker([originCoords[0] + lat, originCoords[1] + lng], {
           icon: carIcon,
         }).addTo(map);
 
-        dMarker.bindPopup(`<b>${d.name}</b><br/>${d.car}<br/><span style="color:#4edea3;">${d.seats} seat(s) available</span>`);
+        dMarker.bindPopup(
+          `<b>${d.name}</b><br/>${d.vehicle}<br/><span style="color:#4edea3;">${d.seats} seat(s) available</span>`
+        );
       });
     }
 
@@ -189,11 +204,18 @@ export const TransitMap: React.FC<TransitMapProps> = ({
       const midLng = (originCoords[1] + destCoords[1]) / 2 - 0.001;
       const routePoints: [number, number][] = [originCoords, [midLat, midLng], destCoords];
 
+      // Soft glow beneath the route line
+      L.polyline(routePoints, {
+        color: "#94ccff",
+        weight: 12,
+        opacity: 0.12,
+      }).addTo(map);
+
       // Route Polyline
       L.polyline(routePoints, {
-        color: "#0378b7",
-        weight: 5,
-        opacity: 0.85,
+        color: "#94ccff",
+        weight: 4,
+        opacity: 0.9,
         dashArray: mode === "active_ride" ? undefined : "6, 8",
       }).addTo(map);
 
@@ -248,9 +270,13 @@ export const TransitMap: React.FC<TransitMapProps> = ({
       }
     }
 
+    const resizeTimer = window.setTimeout(() => map.invalidateSize(), 180);
+
     return () => {
+      window.clearTimeout(resizeTimer);
       map.remove();
       mapInstanceRef.current = null;
+      vehicleMarkerRef.current = null;
     };
   }, [originName, destinationName, mode]);
 

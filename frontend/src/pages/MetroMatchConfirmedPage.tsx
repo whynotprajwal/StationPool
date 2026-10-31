@@ -1,132 +1,277 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { apiService } from "../api/client";
 import { useAuth } from "../context/AuthContext";
-import { Journey, Trip, DynamicPinData } from "../types";
+import { useToast } from "../components/Toast";
+import type { DynamicPinData, Journey } from "../types";
 import Navbar from "../components/Navbar";
+import DriverBadge from "../components/DriverBadge";
+import RouteLine from "../components/RouteLine";
 
 export const MetroMatchConfirmedPage: React.FC = () => {
   const { journeyId } = useParams<{ journeyId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
+  const { toast } = useToast();
 
   const stateData = location.state as { tripId?: string; journey?: Journey } | null;
-  const [tripId, setTripId] = useState<string>(stateData?.tripId || "");
+  const [tripId, setTripId] = useState(stateData?.tripId || "");
   const [journey, setJourney] = useState<Journey | null>(stateData?.journey || null);
   const [pinData, setPinData] = useState<DynamicPinData | null>(null);
-  const [timer, setTimer] = useState(600);
+  const [secondsLeft, setSecondsLeft] = useState(600);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const initRef = useRef(false);
 
   useEffect(() => {
+    if (initRef.current) return;
+    initRef.current = true;
+
     const init = async () => {
       try {
-        let currentTripId = tripId;
-        if (!currentTripId && journeyId) { const trip = await apiService.startTrip(journeyId); currentTripId = trip.id; setTripId(trip.id); }
-        if (!journey && journeyId) { const j = await apiService.getJourney(journeyId); setJourney(j); }
-        if (currentTripId) { const pinRes = await apiService.getPassengerPin(currentTripId, user?.id); setPinData(pinRes); }
-      } catch (err) { console.error(err); } finally { setLoading(false); }
+        let currentTripId = stateData?.tripId || "";
+        if (!currentTripId && journeyId) {
+          const trip = await apiService.startTrip(journeyId);
+          currentTripId = trip.id;
+          setTripId(trip.id);
+        }
+        if (!journey && journeyId) {
+          const loaded = await apiService.getJourney(journeyId);
+          setJourney(loaded);
+        }
+        if (currentTripId) {
+          const pin = await apiService.getPassengerPin(currentTripId, user?.id);
+          setPinData(pin);
+          setSecondsLeft(Math.max(0, Math.round((new Date(pin.expires_at).getTime() - Date.now()) / 1000)));
+        } else {
+          setError("Could not locate this pool.");
+        }
+      } catch {
+        setError("We couldn't load your boarding pass. Please retry.");
+      } finally {
+        setLoading(false);
+      }
     };
     init();
-  }, [journeyId, tripId, user]);
+  }, [journeyId, journey, stateData?.tripId, user?.id]);
 
   useEffect(() => {
-    const interval = setInterval(() => setTimer((p) => (p > 0 ? p - 1 : 0)), 1000);
-    return () => clearInterval(interval);
+    const timer = setInterval(() => setSecondsLeft((prev) => (prev > 0 ? prev - 1 : 0)), 1000);
+    return () => clearInterval(timer);
   }, []);
 
-  const formatTimer = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, "0")}`;
+  const handleCopy = async () => {
+    if (!pinData?.pin) return;
+    try {
+      await navigator.clipboard.writeText(pinData.pin);
+      toast("PIN copied", "Show it to your driver at the metro gate.", "success");
+    } catch {
+      toast("Copy failed", "Long-press the PIN to copy it manually.", "error");
+    }
+  };
+
+  const handleShare = async () => {
+    if (!pinData || !journey) return;
+    const shareText = `StationPool boarding PIN: ${pinData.pin} · ${journey.origin_station} → ${journey.destination_zone}`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "StationPool boarding pass", text: shareText });
+      } else {
+        await navigator.clipboard.writeText(shareText);
+        toast("Boarding pass copied", "Share it with your co-commuters.", "success");
+      }
+    } catch {
+      /* user dismissed the share sheet */
+    }
+  };
 
   const handleRefreshPin = async () => {
     if (!tripId) return;
-    try { const pinRes = await apiService.getPassengerPin(tripId, user?.id); setPinData(pinRes); setTimer(600); }
-    catch (err) { console.error(err); }
+    try {
+      const pin = await apiService.getPassengerPin(tripId, user?.id);
+      setPinData(pin);
+      setSecondsLeft(Math.max(0, Math.round((new Date(pin.expires_at).getTime() - Date.now()) / 1000)));
+      toast("PIN refreshed", "A fresh dynamic PIN is ready.", "success");
+    } catch {
+      toast("Refresh failed", "Please try again in a moment.", "error");
+    }
   };
 
+  const formatTimer = (total: number) => {
+    const minutes = Math.floor(total / 60);
+    const seconds = total % 60;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
+
+  const timerProgress = Math.max(0, Math.min(100, (secondsLeft / 600) * 100));
+
   return (
-    <div className="bg-surface font-body-md text-on-surface min-h-screen flex flex-col pb-12">
-      <Navbar title="Pool Confirmed" showBack={true} />
+    <div className="mx-auto flex min-h-screen w-full max-w-[480px] flex-col pb-10">
+      <Navbar title="Pool confirmed" showBack />
 
-      <main className="flex-1 flex flex-col max-w-md mx-auto w-full pt-20 px-4 gap-4">
+      <main className="flex flex-1 flex-col gap-4 px-4 pt-20">
+        {/* Success header */}
+        <section className="flex items-center gap-3 animate-fadeIn">
+          <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-tertiary/15 text-tertiary">
+            <span className="absolute inset-0 animate-ping rounded-2xl border border-tertiary/30" />
+            <span className="material-symbols-outlined fill text-[26px]">check_circle</span>
+          </div>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-lg font-extrabold tracking-tight text-on-surface">Seat confirmed</h1>
+            <p className="text-[11px] text-on-surface-variant">
+              {journey?.origin_station || "Metro station"} gate · {formatTimer(secondsLeft)} left to board
+            </p>
+          </div>
+          <span className="chip chip-active">PIN ready</span>
+        </section>
 
-        {/* Status */}
-        <div className="flex items-center gap-3 p-4 rounded-xl bg-surface-container-high border border-surface-container-highest">
-          <div className="w-10 h-10 rounded-xl bg-tertiary-container flex items-center justify-center shrink-0">
-            <span className="material-symbols-outlined text-tertiary text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+        {loading ? (
+          <div className="glass-card flex flex-col items-center gap-3 p-6">
+            <div className="skeleton h-5 w-24" />
+            <div className="skeleton h-16 w-full" />
+            <div className="skeleton h-3 w-2/3" />
           </div>
-          <div>
-            <p className="font-bold text-sm text-on-surface">Ride Confirmed!</p>
-            <p className="text-xs text-on-surface-variant">{journey?.origin_station || "Ramwadi"} Metro Gate</p>
-          </div>
-        </div>
-
-        {/* Boarding PIN */}
-        <div className="rounded-2xl bg-surface-container-low border-2 border-secondary/30 p-5 flex flex-col items-center text-center gap-3">
-          <p className="text-xs text-on-surface-variant font-semibold">Show this PIN to your driver</p>
-          <div className="flex gap-3 px-5 py-3 rounded-xl bg-surface-container border border-surface-container-high tracking-widest">
-            {(pinData?.pin || "4892").split("").map((digit, idx) => (
-              <span key={idx} className="font-mono text-3xl font-extrabold text-secondary">{digit}</span>
-            ))}
-          </div>
-          <div className="flex items-center gap-2 text-xs text-on-surface-variant">
-            <span className="material-symbols-outlined text-[14px] text-tertiary">timer</span>
-            <span className="font-mono">Expires {formatTimer(timer)}</span>
-            <span>·</span>
-            <button onClick={handleRefreshPin} className="text-secondary font-bold hover:underline flex items-center gap-0.5">
-              <span className="material-symbols-outlined text-[14px]">refresh</span> Refresh
+        ) : error ? (
+          <div className="glass-card flex flex-col items-center gap-3 p-6 text-center">
+            <span className="material-symbols-outlined text-[32px] text-error">error</span>
+            <p className="text-sm font-extrabold text-on-surface">Boarding pass unavailable</p>
+            <p className="text-xs text-on-surface-variant">{error}</p>
+            <button onClick={() => navigate("/match")} className="btn-primary mt-1 max-w-[220px] py-2.5 text-xs">
+              Back to radar
             </button>
           </div>
-        </div>
+        ) : (
+          <>
+            {/* PIN card */}
+            <section className="glass-card relative overflow-hidden p-5 text-center animate-pop">
+              <div className="pointer-events-none absolute -left-16 -top-16 h-40 w-40 rounded-full bg-secondary/15 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -right-10 h-36 w-36 rounded-full bg-tertiary/10 blur-3xl" />
 
-        {/* Driver info */}
-        <div className="p-4 rounded-xl bg-surface-container border border-surface-container-high flex flex-col gap-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center font-bold text-base text-secondary">
-                {journey?.driver?.full_name ? journey.driver.full_name[0] : "R"}
-              </div>
-              <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="font-bold text-sm text-on-surface">{journey?.driver?.full_name || "Rahul Deshmukh"}</span>
-                  <span className="material-symbols-outlined text-secondary text-[14px]">verified</span>
+              <div className="relative">
+                <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-secondary/25 bg-secondary/10 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-secondary">
+                  <span className="material-symbols-outlined text-[13px]">pin</span>
+                  Boarding PIN
                 </div>
-                <p className="text-xs text-on-surface-variant font-mono">
-                  {journey?.driver?.vehicle_model || "Honda City"} · <span className="text-secondary font-bold">{journey?.driver?.vehicle_registration || "MH 12 QX 4509"}</span>
-                </p>
+                <p className="text-[11px] text-on-surface-variant">Show this to your driver at pickup</p>
+
+                <button
+                  onClick={handleCopy}
+                  aria-label="Copy boarding PIN"
+                  className="mx-auto mt-3 flex items-center justify-center gap-2.5 rounded-2xl border border-white/10 bg-surface-container-lowest/70 px-5 py-3.5 shadow-inner transition active:scale-95"
+                >
+                  {(pinData?.pin || "••••").split("").map((digit, index) => (
+                    <span
+                      key={index}
+                      className="font-mono text-[2.1rem] font-extrabold leading-none tracking-[0.15em] text-secondary"
+                    >
+                      {digit}
+                    </span>
+                  ))}
+                </button>
+
+                <div className="mt-3 flex items-center justify-center gap-2 text-[10px] text-on-surface-variant">
+                  <span className="material-symbols-outlined text-[13px] text-tertiary">timer</span>
+                  <span className="font-mono">Expires in {formatTimer(secondsLeft)}</span>
+                  <span className="text-on-surface-variant/40">·</span>
+                  <button
+                    onClick={handleRefreshPin}
+                    className="flex items-center gap-0.5 font-bold text-secondary hover:underline"
+                  >
+                    <span className="material-symbols-outlined text-[13px]">refresh</span>
+                    Refresh
+                  </button>
+                </div>
+
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-secondary to-tertiary transition-all duration-1000"
+                    style={{ width: `${timerProgress}%` }}
+                  />
+                </div>
+
+                <div className="mt-3 flex gap-2">
+                  <button onClick={handleCopy} className="btn-ghost flex-1 py-2.5 text-[11px]">
+                    <span className="material-symbols-outlined text-[16px]">content_copy</span>
+                    Copy PIN
+                  </button>
+                  <button onClick={handleShare} className="btn-ghost flex-1 py-2.5 text-[11px]">
+                    <span className="material-symbols-outlined text-[16px]">share</span>
+                    Share pass
+                  </button>
+                </div>
               </div>
-            </div>
-            <a href={`tel:${journey?.driver?.mobile_number || "+919876543210"}`}
-              className="w-10 h-10 rounded-full bg-secondary-container/40 flex items-center justify-center text-secondary">
-              <span className="material-symbols-outlined text-[20px]">call</span>
-            </a>
-          </div>
-          <div className="flex items-center justify-between text-xs bg-surface-container-low rounded-lg p-3">
-            <div>
-              <p className="text-on-surface-variant">Destination</p>
-              <p className="font-bold text-on-surface">{journey?.destination_zone || "EON IT Park Kharadi"}</p>
-            </div>
-            <div className="text-right">
-              <p className="text-on-surface-variant">Fare</p>
-              <p className="font-bold text-tertiary font-mono">₹{journey?.estimated_total_cost || 55}</p>
-            </div>
-          </div>
-        </div>
+            </section>
 
-        <button
-          onClick={() => navigate(`/ride/passenger/${tripId || "trip-demo"}`)}
-          className="w-full py-4 rounded-xl bg-gradient-to-r from-secondary to-tertiary text-on-tertiary font-bold text-sm shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2"
-        >
-          <span>Track My Ride</span>
-          <span className="material-symbols-outlined text-[18px]">navigation</span>
-        </button>
+            {/* Route */}
+            <section className="glass-panel p-4">
+              <div className="mb-2 flex items-center justify-between">
+                <p className="eyebrow">Your route</p>
+                <span className="text-[10px] font-mono text-on-surface-variant">
+                  {journey?.vehicle_category === "two_wheeler" ? "Bike pool" : "Car pool"}
+                </span>
+              </div>
+              <RouteLine
+                origin={journey?.origin_station || "Metro station"}
+                destination={journey?.destination_zone || "Destination"}
+                originSub="Metro exit"
+                destinationSub={journey?.destination_label || "Drop point"}
+              />
+            </section>
 
-        <div className="text-center">
-          <button onClick={() => navigate(`/ride/verify-pin/${tripId || "trip-demo"}`)}
-            className="text-xs text-secondary hover:underline flex items-center justify-center gap-1 mx-auto">
-            <span className="material-symbols-outlined text-[14px]">badge</span>
-            Switch to Driver View
-          </button>
-        </div>
+            {/* Driver */}
+            <section className="glass-panel flex flex-col gap-3 p-4">
+              <DriverBadge
+                driver={journey?.driver}
+                subtitle={`${journey?.driver?.vehicle_model || "Verified vehicle"} · ${journey?.driver?.vehicle_registration || "MH 12"}`}
+              />
+              <div className="flex items-center justify-between rounded-xl bg-white/[0.03] px-3 py-2.5">
+                <div>
+                  <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-on-surface-variant/60">
+                    Destination
+                  </p>
+                  <p className="text-xs font-extrabold text-on-surface">
+                    {journey?.destination_zone || "—"}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-on-surface-variant/60">
+                    Locked fare
+                  </p>
+                  <p className="font-mono text-sm font-extrabold text-tertiary">
+                    ₹{journey?.estimated_total_cost || 55}
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <button
+              onClick={() => navigate(`/ride/passenger/${tripId || "trip-demo"}`)}
+              className="btn-primary"
+            >
+              <span className="material-symbols-outlined text-[18px]">navigation</span>
+              Track my ride
+            </button>
+
+            <div className="flex items-center justify-center gap-4 pb-2">
+              <button
+                onClick={() => navigate(`/ride/verify-pin/${tripId || "trip-demo"}`)}
+                className="flex items-center gap-1 text-[10px] font-semibold text-on-surface-variant transition hover:text-secondary"
+              >
+                <span className="material-symbols-outlined text-[14px]">badge</span>
+                Driver handoff
+              </button>
+              <span className="h-3 w-px bg-white/10" />
+              <button
+                onClick={() => navigate("/activity")}
+                className="flex items-center gap-1 text-[10px] font-semibold text-on-surface-variant transition hover:text-secondary"
+              >
+                <span className="material-symbols-outlined text-[14px]">shield</span>
+                Safety centre
+              </button>
+            </div>
+          </>
+        )}
       </main>
     </div>
   );

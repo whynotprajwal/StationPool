@@ -25,6 +25,15 @@ def start_trip(payload: TripCreate, db: Session = Depends(get_db)):
     return TripService.get_trip_details(db, trip.id)
 
 
+@router.get("/mine", response_model=list[TripResponse])
+def my_trips(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Trip history for the signed-in commuter (driver or passenger)."""
+    return TripService.get_user_trips(db, current_user.id)
+
+
 @router.get("/{trip_id}", response_model=TripResponse)
 def get_trip(trip_id: str, db: Session = Depends(get_db)):
     """Get active trip details, passengers, and status."""
